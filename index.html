@@ -109,27 +109,44 @@
             <div class="glass-card results-card">
                 <h2 id="resultsTitle">Tax Calculation Results</h2>
                 
-                <!-- Summary Box -->
+                <!-- Summary Box - Redesigned -->
                 <div class="summary-box">
-                    <div class="summary-item highlight">
-                        <span id="labelNetPayable">Net Tax Payable</span>
-                        <span id="netPayable" class="summary-value">৳ 0</span>
+                    <!-- Main Focus: What You Pay -->
+                    <div class="summary-item primary-focus">
+                        <span id="netPayable" class="summary-value-large">৳ 0</span>
+                        <span id="labelNetPayable" class="summary-label">You Will Pay</span>
                     </div>
-                    <div class="summary-item">
-                        <span id="labelEffectiveRate">Effective Tax Rate</span>
-                        <span id="effectiveRate" class="summary-value">0%</span>
+                    
+                    <!-- Total Tax to Government -->
+                    <div class="summary-item info-card">
+                        <span id="finalTaxDisplay" class="summary-value-large">৳ 0</span>
+                        <span id="labelTotalTaxToGov" class="summary-label">Total Tax to Government</span>
+                        <small id="helperTotalTax" class="helper-text">After rebate deduction</small>
                     </div>
-                    <div class="summary-item success">
-                        <span id="labelMinInvestmentNeeded">Min Investment for Max Rebate</span>
-                        <span id="maxInvestmentLimit" class="summary-value">৳ 0</span>
+                    
+                    <!-- Employer Contribution -->
+                    <div class="summary-item success-card">
+                        <span id="employerPaidDisplay" class="summary-value-large">৳ 0</span>
+                        <span id="labelEmployerPaid" class="summary-label">Employer Paid</span>
+                        <small id="helperEmployer" class="helper-text">Already deposited</small>
                     </div>
-                    <div class="summary-item">
-                        <span id="labelYourInvestment">Your Investment</span>
-                        <span id="yourInvestment" class="summary-value">৳ 0</span>
+                    
+                    <!-- Investment Recommendation -->
+                    <div class="summary-item warning-card">
+                        <span id="minInvestmentDisplay" class="summary-value-large">৳ 0</span>
+                        <span id="labelMinInvestmentNeeded" class="summary-label">Min Investment for Max Rebate</span>
+                        <small id="helperMinInvest" class="helper-text">Recommended amount</small>
                     </div>
-                    <div class="summary-item warning">
-                        <span id="labelPotentialSavings">Potential Extra Savings</span>
-                        <span id="potentialSavings" class="summary-value">৳ 0</span>
+                </div>
+                
+                <!-- Investment Gap Alert -->
+                <div id="investmentGapAlert" class="investment-alert hidden">
+                    <div class="alert-content">
+                        <span class="alert-icon">💡</span>
+                        <div class="alert-text">
+                            <strong id="alertTitle">Investment Opportunity</strong>
+                            <p id="alertMessage">If you invest <span id="investmentShortfall">৳ 0</span> more, you  can save an additional <span id="additionalSavings">৳ 0</span> in taxes!</p>
+                        </div>
                     </div>
                 </div>
 

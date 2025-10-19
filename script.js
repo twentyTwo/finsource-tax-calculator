@@ -14,11 +14,21 @@ const translations = {
         btnCalculate: "Calculate Tax",
         btnReset: "Reset",
         resultsTitle: "Tax Calculation Results",
-        labelNetPayable: "Net Tax Payable",
+        labelNetPayable: "You Will Pay",
         labelEffectiveRate: "Effective Tax Rate",
         labelMinInvestmentNeeded: "Min Investment for Max Rebate",
         labelYourInvestment: "Your Investment",
-        labelPotentialSavings: "Potential Extra Savings",
+        labelPotentialSavings: "Extra Savings If You Invest",
+        labelTotalTaxToGov: "Total Tax to Government",
+        labelEmployerPaid: "Employer Paid",
+        helperTotalTax: "After rebate deduction",
+        helperEmployer: "Already deposited",
+        helperMinInvest: "Recommended amount",
+        helperSavings: "By investing shortfall",
+        alertTitle: "Investment Opportunity",
+        alertMessagePart1: "Invest",
+        alertMessagePart2: "more to save an additional",
+        alertMessagePart3: "in taxes!",
         breakdownTitle: "Detailed Breakdown",
         labelGrossIncomeBreakdown: "Gross Income",
         labelExemptedIncome: "Exempted Income",
@@ -66,11 +76,21 @@ const translations = {
         btnCalculate: "কর গণনা করুন",
         btnReset: "রিসেট",
         resultsTitle: "কর গণনার ফলাফল",
-        labelNetPayable: "নিট প্রদেয় কর",
+        labelNetPayable: "আপনি পরিশোধ করবেন",
         labelEffectiveRate: "কার্যকর কর হার",
         labelMinInvestmentNeeded: "সর্বোচ্চ রেয়াতের জন্য ন্যূনতম বিনিয়োগ",
         labelYourInvestment: "আপনার বিনিয়োগ",
-        labelPotentialSavings: "সম্ভাব্য অতিরিক্ত সাশ্রয়",
+        labelPotentialSavings: "বিনিয়োগ করলে অতিরিক্ত সাশ্রয়",
+        labelTotalTaxToGov: "সরকারকে মোট কর",
+        labelEmployerPaid: "নিয়োগকর্তা পরিশোধিত",
+        helperTotalTax: "রেয়াত বাদে",
+        helperEmployer: "ইতিমধ্যে জমাকৃত",
+        helperMinInvest: "প্রস্তাবিত পরিমাণ",
+        helperSavings: "ঘাটতি বিনিয়োগ করে",
+        alertTitle: "বিনিয়োগের সুযোগ",
+        alertMessagePart1: "বিনিয়োগ করুন",
+        alertMessagePart2: "আরও এবং অতিরিক্ত সাশ্রয় করুন",
+        alertMessagePart3: "কর!",
         breakdownTitle: "বিস্তারিত বিবরণ",
         labelGrossIncomeBreakdown: "মোট আয়",
         labelExemptedIncome: "করমুক্ত আয়",
@@ -388,15 +408,28 @@ function displayResults(results) {
     // Show results section
     elements.resultsSection.classList.remove('hidden');
     
-    // Update summary
-    document.getElementById('netPayable').textContent = formatCurrency(results.netPayable);
-    document.getElementById('effectiveRate').textContent = `${results.effectiveRate.toFixed(2)}%`;
-    
-    // Update investment analysis
     const inv = results.investmentAnalysis;
-    document.getElementById('maxInvestmentLimit').textContent = formatCurrency(inv.minInvestmentForMaxRebate);
-    document.getElementById('yourInvestment').textContent = formatCurrency(inv.currentInvestment);
-    document.getElementById('potentialSavings').textContent = formatCurrency(inv.potentialExtraSavings);
+    
+    // Update main summary cards - Numbers first approach
+    document.getElementById('netPayable').textContent = formatCurrency(results.netPayable);
+    document.getElementById('finalTaxDisplay').textContent = formatCurrency(results.finalTax);
+    document.getElementById('employerPaidDisplay').textContent = formatCurrency(results.employerDeposit);
+    document.getElementById('minInvestmentDisplay').textContent = formatCurrency(inv.minInvestmentForMaxRebate);
+    
+    // Show investment alert if there's a shortfall and potential savings
+    const alertBox = document.getElementById('investmentGapAlert');
+    if (inv.investmentShortfall > 0 && inv.potentialExtraSavings > 0) {
+        alertBox.classList.remove('hidden');
+        document.getElementById('investmentShortfall').textContent = formatCurrency(inv.investmentShortfall);
+        document.getElementById('additionalSavings').textContent = formatCurrency(inv.potentialExtraSavings);
+        
+        // Update alert message with translation
+        const t = translations[currentLanguage];
+        const alertMessage = document.getElementById('alertMessage');
+        alertMessage.innerHTML = `${t.alertMessagePart1} <span id="investmentShortfall">${formatCurrency(inv.investmentShortfall)}</span> ${t.alertMessagePart2} <span id="additionalSavings">${formatCurrency(inv.potentialExtraSavings)}</span> ${t.alertMessagePart3}`;
+    } else {
+        alertBox.classList.add('hidden');
+    }
     
     // Update breakdown
     document.getElementById('grossIncomeBreakdown').textContent = formatCurrency(results.grossIncome);

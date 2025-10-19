@@ -246,7 +246,7 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Summary Box - Compact Grid */
+/* Summary Box - Redesigned with Numbers First */
 .summary-box {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -255,15 +255,141 @@ body {
 }
 
 .summary-item {
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg);
     background: var(--bg-secondary);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.summary-item span:first-child {
+.summary-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Large value - for all cards now - BIGGER */
+.summary-value-large,
+.summary-value-medium {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+/* Label below the number */
+.summary-label {
     display: block;
     font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+/* Helper text */
+.helper-text {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* Primary Focus Card - What You Pay */
+.summary-item.primary-focus {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0.03) 100%);
+    border: 2px solid rgba(37, 99, 235, 0.3);
+}
+
+.summary-item.primary-focus .summary-value-large {
+    color: var(--primary-color);
+}
+
+/* Card color variants */
+.summary-item.info-card {
+    background: rgba(100, 116, 139, 0.05);
+    border-color: rgba(100, 116, 139, 0.2);
+}
+
+.summary-item.info-card .summary-value-large,
+.summary-item.info-card .summary-value-medium {
+    color: var(--text-primary);
+}
+
+.summary-item.success-card {
+    background: rgba(5, 150, 105, 0.05);
+    border-color: rgba(5, 150, 105, 0.2);
+}
+
+.summary-item.success-card .summary-value-large,
+.summary-item.success-card .summary-value-medium {
+    color: var(--success-color);
+}
+
+.summary-item.warning-card {
+    background: rgba(217, 119, 6, 0.05);
+    border-color: rgba(217, 119, 6, 0.2);
+}
+
+.summary-item.warning-card .summary-value-large,
+.summary-item.warning-card .summary-value-medium {
+    color: var(--warning-color);
+}
+
+/* Investment Alert Box */
+.investment-alert {
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(217, 119, 6, 0.03) 100%);
+    border: 1px solid rgba(217, 119, 6, 0.3);
+    border-left: 4px solid var(--warning-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.investment-alert.hidden {
+    display: none;
+}
+
+.alert-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.alert-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.alert-text strong {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.alert-text p {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.alert-text span {
+    font-weight: 700;
+    color: var(--warning-color);
+}
+
+/* Old summary styles - keep for backward compatibility */
+.summary-item span:first-child {
+    display: block;
+    font-size: 2.5rem;
     color: var(--text-secondary);
     margin-bottom: var(--spacing-xs);
     font-weight: 500;
@@ -603,6 +729,11 @@ body {
         grid-template-columns: 1fr;
     }
     
+    .summary-value-large,
+    .summary-value-medium {
+        font-size: 2rem;
+    }
+    
     .slab-item {
         grid-template-columns: 1fr;
         gap: 0.25rem;
@@ -641,8 +772,9 @@ body {
         font-size: 0.875rem;
     }
     
-    .summary-value {
-        font-size: 1.25rem;
+    .summary-value-large,
+    .summary-value-medium {
+        font-size: 1.75rem;
     }
 }
 
