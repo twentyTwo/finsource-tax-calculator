@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bangladesh Income Tax Calculator for FY 2025-26 - Calculate your tax with exemptions, rebates, and progressive slabs">
+    <meta name="keywords" content="Bangladesh tax calculator, income tax, FY 2025-26, tax rebate">
+    <meta name="author" content="FinSource">
+    <title>Bangladesh Income Tax Calculator FY 2025-26</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="language-toggle">
+            <button id="langToggle" class="lang-btn" aria-label="Toggle language between English and Bangla">
+                <span id="langText">বাংলা</span>
+            </button>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <h1 id="mainTitle">Bangladesh Income Tax Calculator</h1>
+            <p id="fiscalYear">Fiscal Year 2025-26</p>
+        </header>
+
+        <!-- Main Calculator Card -->
+        <main class="calculator-card glass-card">
+            <form id="taxForm" novalidate>
+                <!-- Gross Income Section -->
+                <section class="input-section">
+                    <h2 id="incomeTitle">Income Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="grossIncome" id="labelGrossIncome">
+                            Gross Annual Income (BDT)
+                            <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="grossIncome" 
+                            name="grossIncome"
+                            inputmode="numeric"
+                            aria-required="true"
+                            aria-describedby="grossIncomeHelp"
+                            placeholder="0"
+                            autocomplete="off"
+                        >
+                        <small id="grossIncomeHelp" class="help-text">
+                            <span id="helpGrossIncome">Enter your total annual gross income</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="investmentAmount" id="labelInvestment">
+                            Investment Amount (BDT)
+                            <span class="optional-badge" id="badgeOptional">Optional</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="investmentAmount" 
+                            name="investmentAmount"
+                            inputmode="numeric"
+                            aria-describedby="investmentHelp"
+                            placeholder="0"
+                            autocomplete="off"
+                        >
+                        <small id="investmentHelp" class="help-text">
+                            <span id="helpInvestment">Investment in eligible schemes (DPS, insurance, provident fund, etc.)</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employerDeposit" id="labelEmployerDeposit">
+                            Tax Already Deposited by Employer (BDT)
+                            <span class="optional-badge" id="badgeOptional2">Optional</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="employerDeposit" 
+                            name="employerDeposit"
+                            inputmode="numeric"
+                            aria-describedby="employerDepositHelp"
+                            placeholder="0"
+                            autocomplete="off"
+                        >
+                        <small id="employerDepositHelp" class="help-text">
+                            <span id="helpEmployerDeposit">Amount already paid by your employer on your behalf</span>
+                        </small>
+                    </div>
+                </section>
+
+                <!-- Calculate Button -->
+                <div class="button-group">
+                    <button type="submit" id="calculateBtn" class="btn btn-primary">
+                        <span id="btnCalculate">Calculate Tax</span>
+                    </button>
+                    <button type="button" id="resetBtn" class="btn btn-secondary">
+                        <span id="btnReset">Reset</span>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden" aria-live="polite">
+            <div class="glass-card results-card">
+                <h2 id="resultsTitle">Tax Calculation Results</h2>
+                
+                <!-- Summary Box -->
+                <div class="summary-box">
+                    <div class="summary-item highlight">
+                        <span id="labelNetPayable">Net Tax Payable</span>
+                        <span id="netPayable" class="summary-value">৳ 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span id="labelEffectiveRate">Effective Tax Rate</span>
+                        <span id="effectiveRate" class="summary-value">0%</span>
+                    </div>
+                    <div class="summary-item success">
+                        <span id="labelMinInvestmentNeeded">Min Investment for Max Rebate</span>
+                        <span id="maxInvestmentLimit" class="summary-value">৳ 0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span id="labelYourInvestment">Your Investment</span>
+                        <span id="yourInvestment" class="summary-value">৳ 0</span>
+                    </div>
+                    <div class="summary-item warning">
+                        <span id="labelPotentialSavings">Potential Extra Savings</span>
+                        <span id="potentialSavings" class="summary-value">৳ 0</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown -->
+                <div class="breakdown-section">
+                    <h3 id="breakdownTitle">Detailed Breakdown</h3>
+                    
+                    <div class="breakdown-grid">
+                        <div class="breakdown-item">
+                            <span id="labelGrossIncomeBreakdown">Gross Income</span>
+                            <span id="grossIncomeBreakdown" class="breakdown-value">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span id="labelExemptedIncome">Exempted Income</span>
+                            <span id="exemptedIncome" class="breakdown-value exemption">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item divider-top">
+                            <span id="labelTaxableIncome">Taxable Income</span>
+                            <span id="taxableIncome" class="breakdown-value taxable">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span id="labelTaxBeforeRebate">Tax Before Rebate</span>
+                            <span id="taxBeforeRebate" class="breakdown-value">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span id="labelRebate">Tax Rebate</span>
+                            <span id="rebateAmount" class="breakdown-value rebate">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item divider-top">
+                            <span id="labelFinalTax">Final Tax Payable</span>
+                            <span id="finalTax" class="breakdown-value final">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item">
+                            <span id="labelEmployerPaid">Employer Deposited</span>
+                            <span id="employerPaid" class="breakdown-value">৳ 0</span>
+                        </div>
+                        
+                        <div class="breakdown-item highlight-box divider-top">
+                            <span id="labelRemainingDue">Remaining Due</span>
+                            <span id="remainingDue" class="breakdown-value due">৳ 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slab Breakdown -->
+                <div class="slab-breakdown-section">
+                    <h3 id="slabTitle">Tax Slab Breakdown</h3>
+                    <div id="slabBreakdown" class="slab-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Rebate Calculation Details -->
+                <div id="rebateDetails" class="rebate-details-section">
+                    <h3 id="rebateDetailsTitle">Rebate Calculation</h3>
+                    <div id="rebateDetailsContent" class="rebate-details-content">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="info-section glass-card">
+            <h3 id="infoTitle">How It Works</h3>
+            <div class="info-content">
+                <div class="info-item">
+                    <h4 id="infoExemptionTitle">1. Exempted Income</h4>
+                    <p id="infoExemptionText">Minimum of (Gross Income ÷ 3) or BDT 450,000 is tax-free</p>
+                </div>
+                <div class="info-item">
+                    <h4 id="infoSlabTitle">2. Progressive Tax Slabs</h4>
+                    <p id="infoSlabText">Tax is calculated progressively on taxable income using marginal rates from 0% to 30%</p>
+                </div>
+                <div class="info-item">
+                    <h4 id="infoRebateTitle">3. Tax Rebate</h4>
+                    <p id="infoRebateText">Minimum of: 3% of taxable income, 15% of actual investment, or BDT 1,000,000</p>
+                </div>
+                <div class="info-item">
+                    <h4 id="infoFinalTitle">4. Net Payable</h4>
+                    <p id="infoFinalText">Final tax minus employer deposit equals your remaining tax liability</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p id="footerDisclaimer">
+                Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax filing.
+            </p>
+            <p id="footerCopyright">
+                © 2025 Bangladesh Income Tax Calculator | FY 2025-26
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
