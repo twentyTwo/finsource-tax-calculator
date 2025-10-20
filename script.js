@@ -489,9 +489,10 @@ function displayResults(results) {
     document.getElementById('remainingDue').textContent = formatCurrency(results.netPayable);
     
     // Handle special cases
-    if (results.isRefund) {
+    if (results.isRefund && results.employerDeposit > results.finalTax) {
         const remainingDueElement = document.getElementById('remainingDue');
-        remainingDueElement.textContent = formatCurrency(results.employerDeposit - results.finalTax);
+        const refundAmount = results.employerDeposit - results.finalTax;
+        remainingDueElement.textContent = formatCurrency(refundAmount);
         remainingDueElement.parentElement.querySelector('span:first-child').textContent = 
             translations[currentLanguage].refundScenario;
     }
