@@ -14,7 +14,7 @@ const translations = {
         btnCalculate: "Calculate Tax",
         btnReset: "Reset",
         resultsTitle: "Tax Calculation Results",
-        labelNetPayable: "You Will Pay",
+        labelNetPayable: "You Need to Pay",
         labelEffectiveRate: "Effective Tax Rate",
         labelMinInvestmentNeeded: "Min Investment for Max Rebate",
         labelYourInvestment: "Your Investment",
@@ -26,8 +26,8 @@ const translations = {
         helperMinInvest: "Recommended amount",
         helperSavings: "By investing shortfall",
         alertTitle: "Investment Opportunity",
-        alertMessagePart1: "Invest",
-        alertMessagePart2: "more to save an additional",
+        alertMessagePart1: "If you invested",
+        alertMessagePart2: "more, you could save an additional",
         alertMessagePart3: "in taxes!",
         breakdownTitle: "Detailed Breakdown",
         labelGrossIncomeBreakdown: "Gross Income",
@@ -76,7 +76,7 @@ const translations = {
         btnCalculate: "কর গণনা করুন",
         btnReset: "রিসেট",
         resultsTitle: "কর গণনার ফলাফল",
-        labelNetPayable: "আপনি পরিশোধ করবেন",
+        labelNetPayable: "আপনাকে পরিশোধ করতে হবে",
         labelEffectiveRate: "কার্যকর কর হার",
         labelMinInvestmentNeeded: "সর্বোচ্চ রেয়াতের জন্য ন্যূনতম বিনিয়োগ",
         labelYourInvestment: "আপনার বিনিয়োগ",
@@ -88,8 +88,8 @@ const translations = {
         helperMinInvest: "প্রস্তাবিত পরিমাণ",
         helperSavings: "ঘাটতি বিনিয়োগ করে",
         alertTitle: "বিনিয়োগের সুযোগ",
-        alertMessagePart1: "বিনিয়োগ করুন",
-        alertMessagePart2: "আরও এবং অতিরিক্ত সাশ্রয় করুন",
+        alertMessagePart1: "আপনি যদি বিনিয়োগ করতেন",
+        alertMessagePart2: "তাহলে অতিরিক্ত সাশ্রয় করতে পারতেন",
         alertMessagePart3: "কর!",
         breakdownTitle: "বিস্তারিত বিবরণ",
         labelGrossIncomeBreakdown: "মোট আয়",
@@ -126,26 +126,9 @@ const translations = {
     }
 };
 
-// Tax Configuration
-const TAX_CONFIG = {
-    EXEMPTION_DIVISOR: 3,
-    MAX_EXEMPTION: 450000,
-    MAX_REBATE: 1000000,
-    REBATE_RATE_TAXABLE: 0.03,
-    REBATE_RATE_INVESTMENT: 0.15,
-    TAX_SLABS: [
-        { min: 0, max: 350000, rate: 0 },
-        { min: 350001, max: 450000, rate: 0.05 },
-        { min: 450001, max: 850000, rate: 0.10 },
-        { min: 850001, max: 1350000, rate: 0.15 },
-        { min: 1350001, max: 1850000, rate: 0.20 },
-        { min: 1850001, max: 3850000, rate: 0.25 },
-        { min: 3850001, max: Infinity, rate: 0.30 }
-    ]
-};
-
 // State Management
 let currentLanguage = 'en';
+let TAX_CONFIG = null;
 
 // DOM Elements
 const elements = {
@@ -159,8 +142,37 @@ const elements = {
     langToggle: document.getElementById('langToggle')
 };
 
+// Load Tax Configuration
+async function loadTaxConfig() {
+    try {
+        const response = await fetch('tax-config-fy-2025-26.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const config = await response.json();
+
+        // Convert "Infinity" string back to Infinity value
+        config.TAX_SLABS = config.TAX_SLABS.map(slab => ({
+            ...slab,
+            max: slab.max === "Infinity" ? Infinity : slab.max
+        }));
+
+        TAX_CONFIG = config;
+        return true;
+    } catch (error) {
+        console.error('Failed to load tax configuration:', error);
+        alert('Failed to load tax configuration. Please check your internet connection and try again.');
+        return false;
+    }
+}
+
 // Initialize Application
-function init() {
+async function init() {
+    const configLoaded = await loadTaxConfig();
+    if (!configLoaded) {
+        return; // Stop initialization if config failed to load
+    }
+
     setupEventListeners();
     loadLanguagePreference();
     applyTranslations();
@@ -559,7 +571,7 @@ function loadLanguagePreference() {
 
 // Initialize on DOM Load
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => init());
 } else {
     init();
 }

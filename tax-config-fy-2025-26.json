@@ -1,0 +1,16 @@
+{
+  "EXEMPTION_DIVISOR": 3,
+  "MAX_EXEMPTION": 450000,
+  "MAX_REBATE": 1000000,
+  "REBATE_RATE_TAXABLE": 0.03,
+  "REBATE_RATE_INVESTMENT": 0.15,
+  "TAX_SLABS": [
+    { "min": 0, "max": 350000, "rate": 0 },
+    { "min": 350001, "max": 450000, "rate": 0.05 },
+    { "min": 450001, "max": 850000, "rate": 0.10 },
+    { "min": 850001, "max": 1350000, "rate": 0.15 },
+    { "min": 1350001, "max": 1850000, "rate": 0.20 },
+    { "min": 1850001, "max": 3850000, "rate": 0.25 },
+    { "min": 3850001, "max": "Infinity", "rate": 0.30 }
+  ]
+}
