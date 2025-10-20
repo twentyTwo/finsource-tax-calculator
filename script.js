@@ -298,7 +298,12 @@ function calculateTax(grossIncome, investmentAmount, employerDeposit, gender = '
     const rebate = rebateDetails.selectedRebate;
     
     // 5. Calculate Final Tax
-    const finalTax = Math.max(0, totalTax - rebate);
+    let finalTax = Math.max(0, totalTax - rebate);
+    
+    // Apply minimum tax requirement: final tax should be at least 5000 taka if tax before rebate > 0
+    if (totalTax > 0 && finalTax < 5000) {
+        finalTax = 5000;
+    }
     
     // 6. Calculate Net Payable
     const netPayable = Math.max(0, finalTax - employerDeposit);
