@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rebate Maximize Calculator - Plan your investments for maximum tax rebate in next financial year">
+    <meta name="keywords" content="rebate maximize, tax planning, investment calculator, FY 2025-26">
+    <meta name="author" content="FinSource">
+    <title>Rebate Maximize Calculator - Finsource</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for rebate maximize calculator */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .results-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        .results-table td {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .results-table td:last-child {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        .results-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .results-table .highlight-row {
+            background: rgba(37, 99, 235, 0.05);
+            border-top: 2px solid var(--primary-color);
+        }
+
+        .results-table .highlight-row td {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-lg);
+            transition: color var(--transition-fast);
+        }
+
+        .back-link:hover {
+            color: var(--primary-hover);
+        }
+
+        .calculator-description {
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .calculator-description p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .formula-explanation {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="language-toggle">
+            <button id="langToggle" class="lang-btn" aria-label="Toggle language between English and Bangla">
+                <span id="langText">বাংলা</span>
+            </button>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="back-link">
+                ← <span id="backToMain">Back to Main Calculator</span>
+            </a>
+            <h1 id="mainTitle">Rebate Maximize Calculator</h1>
+            <p id="fiscalYear">Plan Your Investments for Maximum Tax Rebate</p>
+        </header>
+
+        <!-- Main Calculator Card -->
+        <main class="calculator-card glass-card">
+            <div class="calculator-description">
+                <p id="descriptionText">
+                    Use this calculator to plan your investments for the next financial year to maximize your tax rebate. 
+                    Enter your current monthly salary to see how much you need to invest.
+                </p>
+            </div>
+
+            <form id="rebateForm" novalidate>
+                <!-- Current Monthly Salary Section -->
+                <section class="input-section">
+                    <h2 id="incomeTitle">Income Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="monthlySalary" id="labelMonthlySalary">
+                            Current Monthly Salary (BDT)
+                            <span class="required" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="monthlySalary" 
+                            name="monthlySalary"
+                            inputmode="numeric"
+                            aria-required="true"
+                            aria-describedby="monthlySalaryHelp"
+                            placeholder="0"
+                            autocomplete="off"
+                        >
+                        <small id="monthlySalaryHelp" class="help-text">
+                            <span id="helpMonthlySalary">Enter your current monthly basic salary</span>
+                        </small>
+                    </div>
+                </section>
+
+                <!-- Calculate Button -->
+                <div class="button-group">
+                    <button type="submit" id="calculateBtn" class="btn btn-primary">
+                        <span id="btnCalculate">Calculate Investment Needed</span>
+                    </button>
+                    <button type="button" id="resetBtn" class="btn btn-secondary">
+                        <span id="btnReset">Reset</span>
+                    </button>
+                </div>
+            </form>
+        </main>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden" aria-live="polite">
+            <div class="glass-card results-card">
+                <h2 id="resultsTitle">Investment Planning Results</h2>
+                
+                <!-- Results Table -->
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th id="tableComponent">Component</th>
+                            <th id="tableCalculation">Calculation</th>
+                            <th id="tableAmount">Amount (BDT)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="yearlySalaryLabel">Yearly Salary</td>
+                            <td id="yearlySalaryCalc">Monthly Salary × 12</td>
+                            <td id="yearlySalary">৳ 0</td>
+                        </tr>
+                        <tr>
+                            <td id="thirteenthSalaryLabel">13th Salary + Performance Bonus</td>
+                            <td id="thirteenthSalaryCalc">≈ Monthly Salary × 1.4</td>
+                            <td id="thirteenthSalary">৳ 0</td>
+                        </tr>
+                        <tr>
+                            <td id="festivalBonusLabel">Festival Bonus</td>
+                            <td id="festivalBonusCalc">≈ Monthly Salary × 1.2</td>
+                            <td id="festivalBonus">৳ 0</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td id="grossSalaryLabel">Gross Salary (Approximate)</td>
+                            <td id="grossSalaryCalc">Sum of above</td>
+                            <td id="grossSalary">৳ 0</td>
+                        </tr>
+                        <tr>
+                            <td id="taxableIncomeLabel">Taxable Income</td>
+                            <td id="taxableIncomeCalc">Gross - Exempted Income</td>
+                            <td id="taxableIncome">৳ 0</td>
+                        </tr>
+                        <tr>
+                            <td id="maxInvestLimitLabel">Max Investment Limit</td>
+                            <td id="maxInvestLimitCalc">(Taxable Income × 0.03) ÷ 0.15</td>
+                            <td id="maxInvestLimit">৳ 0</td>
+                        </tr>
+                        <tr>
+                            <td id="providentFundLabel">Provident Fund</td>
+                            <td id="providentFundCalc">Monthly Salary × 12 × 12%</td>
+                            <td id="providentFund">৳ 0</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td id="additionalInvestmentLabel">You Need to Invest</td>
+                            <td id="additionalInvestmentCalc">Max Investment Limit - Provident Fund</td>
+                            <td id="additionalInvestment">৳ 0</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="formula-explanation" id="formulaExplanation">
+                    <strong>Formula Explanation:</strong> To get maximum tax rebate, you need to invest 20% of your taxable income 
+                    (since 15% of investment should be equal to 3% of taxable income). Your provident fund contribution 
+                    (12% of basic salary) is already counted as investment.
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section -->
+        <section class="info-section glass-card">
+            <h3 id="infoTitle">How to Maximize Your Rebate</h3>
+            <div class="info-content">
+                <div class="info-item">
+                    <h4 id="infoProvidentFundTitle">1. Provident Fund</h4>
+                    <p id="infoProvidentFundText">Your 12% provident fund contribution is automatically counted as eligible investment for tax rebate.</p>
+                </div>
+                <div class="info-item">
+                    <h4 id="infoAdditionalInvestmentTitle">2. Additional Investment</h4>
+                    <p id="infoAdditionalInvestmentText">Invest in DPS, insurance, stocks, or government bonds to reach the maximum investment limit.</p>
+                </div>
+                <div class="info-item">
+                    <h4 id="infoTimingTitle">3. Timing is Important</h4>
+                    <p id="infoTimingText">Plan your investments throughout the year to maximize your tax benefits for the next financial year.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p id="footerDisclaimer">
+                Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax planning.
+            </p>
+            <p id="footerCopyright">
+                © 2025 Finsource Income Tax Calculator | FY 2025-26
+            </p>
+        </footer>
+    </div>
+
+    <script src="rebate-maximize-script.js"></script>
+</body>
+</html>

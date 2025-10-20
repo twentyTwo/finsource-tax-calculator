@@ -66,7 +66,9 @@ const translations = {
         refundScenario: "Refund Due - Employer deposited more than required",
         modalSlabTitle: "Tax Slab Breakdown",
         modalRebateTitle: "Rebate Calculation",
-        modalExemptedTitle: "Exempted Income Calculation"
+        modalExemptedTitle: "Exempted Income Calculation",
+        rebateInfoText: "Want to maximize your rebate in next financial year?",
+        rebateInfoLink: "Click Here"
     },
     bn: {
         mainTitle: "ফিনসোর্স আয়কর ক্যালকুলেটর",
@@ -114,13 +116,13 @@ const translations = {
         infoTitle: "কীভাবে কাজ করে",
         infoExemptionTitle: "১. করমুক্ত আয়",
         infoExemptionText: "(মোট আয় ÷ ৩) অথবা ৪,৫০,০০০ টাকার মধ্যে যেটি কম সেটি করমুক্ত",
-        infoSlabTitle: "২. প্রগতিশীল কর স্ল্যাব",
+        infoSlabTitle: "২. কর স্ল্যাব",
         infoSlabText: "করযোগ্য আয়ের উপর ০% থেকে ৩০% পর্যন্ত ক্রমান্বয়ে কর হিসাব করা হয়",
         infoRebateTitle: "৩. কর রেয়াত",
         infoRebateText: "এই তিনটির মধ্যে যেটি কম: করযোগ্য আয়ের ৩%, প্রকৃত বিনিয়োগের ১৫%, অথবা ১০,০০,০০০ টাকা",
         infoFinalTitle: "৪. নিট প্রদেয়",
         infoFinalText: "চূড়ান্ত কর বিয়োগ নিয়োগকর্তা জমাকৃত = আপনার অবশিষ্ট কর দায়",
-        footerDisclaimer: "দাবিত্যাগ: এই ক্যালকুলেটরটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে। সঠিক কর দাখিলের জন্য একজন কর পেশাদারের সাথে পরামর্শ করুন।",
+        footerDisclaimer: "ডিসক্লেইমার: এই ক্যালকুলেটরটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে। সঠিক কর দাখিলের জন্য একজন কর পেশাদারের সাথে পরামর্শ করুন।",
         footerCopyright: "© ২০২৫ ফিনসোর্স আয়কর ক্যালকুলেটর | অর্থবছর ২০২৫-২৬",
         langText: "English",
         slabRange: "সীমা",
@@ -134,7 +136,9 @@ const translations = {
         refundScenario: "ফেরত প্রদেয় - নিয়োগকর্তা প্রয়োজনের চেয়ে বেশি জমা করেছেন",
         modalSlabTitle: "কর স্ল্যাব বিবরণ",
         modalRebateTitle: "রেয়াত গণনা",
-        modalExemptedTitle: "করমুক্ত আয় গণনা"
+        modalExemptedTitle: "করমুক্ত আয় গণনা",
+        rebateInfoText: "পরবর্তী অর্থবছরে আপনার রেয়াত সর্বোচ্চ করতে চান?",
+        rebateInfoLink: "এখানে ক্লিক করুন"
     }
 };
 
@@ -192,6 +196,7 @@ async function init() {
 
     setupEventListeners();
     loadLanguagePreference();
+    // Apply translations after loading language preference
     applyTranslations();
 }
 
@@ -772,18 +777,31 @@ function applyTranslations() {
     elements.grossIncome.placeholder = placeholderValue;
     elements.investmentAmount.placeholder = placeholderValue;
     elements.employerDeposit.placeholder = placeholderValue;
+    
+    // Update language toggle button text
+    document.getElementById('langText').textContent = t.langText;
 }
 
 // Save Language Preference
 function saveLanguagePreference() {
     localStorage.setItem('taxCalcLanguage', currentLanguage);
+    // Also save to shared storage for rebate calculator
+    localStorage.setItem('sharedLanguage', currentLanguage);
 }
 
 // Load Language Preference
 function loadLanguagePreference() {
-    const saved = localStorage.getItem('taxCalcLanguage');
+    // Try to load from shared storage first (from rebate calculator)
+    let saved = localStorage.getItem('sharedLanguage');
+    console.log('Loading shared language:', saved);
+    if (!saved) {
+        // Fallback to own storage
+        saved = localStorage.getItem('taxCalcLanguage');
+        console.log('Fallback to own language:', saved);
+    }
     if (saved && (saved === 'en' || saved === 'bn')) {
         currentLanguage = saved;
+        console.log('Set current language to:', currentLanguage);
     }
 }
 
