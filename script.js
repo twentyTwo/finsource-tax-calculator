@@ -793,15 +793,12 @@ function saveLanguagePreference() {
 function loadLanguagePreference() {
     // Try to load from shared storage first (from rebate calculator)
     let saved = localStorage.getItem('sharedLanguage');
-    console.log('Loading shared language:', saved);
     if (!saved) {
         // Fallback to own storage
         saved = localStorage.getItem('taxCalcLanguage');
-        console.log('Fallback to own language:', saved);
     }
     if (saved && (saved === 'en' || saved === 'bn')) {
         currentLanguage = saved;
-        console.log('Set current language to:', currentLanguage);
     }
 }
 

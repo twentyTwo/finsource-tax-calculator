@@ -298,15 +298,12 @@ function saveLanguagePreference() {
 function loadLanguagePreference() {
     // Try to load from shared storage first (from main calculator)
     let saved = localStorage.getItem('sharedLanguage');
-    console.log('Rebate: Loading shared language:', saved);
     if (!saved) {
         // Fallback to own storage
         saved = localStorage.getItem('rebateCalcLanguage');
-        console.log('Rebate: Fallback to own language:', saved);
     }
     if (saved && (saved === 'en' || saved === 'bn')) {
         currentLanguage = saved;
-        console.log('Rebate: Set current language to:', currentLanguage);
     }
 }
 

@@ -669,6 +669,26 @@ body {
     font-size: 0.8125rem;
 }
 
+.footer-github {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-light);
+}
+
+.footer-github a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.footer-github a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
 /* Remove animations */
 @keyframes fadeInDown {
     from {
