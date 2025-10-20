@@ -161,7 +161,7 @@
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelExemptedIncome">Exempted Income</span>
+                            <span id="labelExemptedIncome" class="clickable-label" onclick="showExemptedIncome()">Exempted Income</span>
                             <span id="exemptedIncome" class="breakdown-value exemption">৳ 0</span>
                         </div>
                         
@@ -171,12 +171,12 @@
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelTaxBeforeRebate">Tax Before Rebate</span>
+                            <span id="labelTaxBeforeRebate" class="clickable-label" onclick="showSlabBreakdown()">Tax Before Rebate</span>
                             <span id="taxBeforeRebate" class="breakdown-value">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelRebate">Tax Rebate</span>
+                            <span id="labelRebate" class="clickable-label" onclick="showRebateDetails()">Tax Rebate</span>
                             <span id="rebateAmount" class="breakdown-value rebate">৳ 0</span>
                         </div>
                         
@@ -196,24 +196,47 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Slab Breakdown -->
-                <div class="slab-breakdown-section">
-                    <h3 id="slabTitle">Tax Slab Breakdown</h3>
-                    <div id="slabBreakdown" class="slab-list">
-                        <!-- Dynamically populated -->
-                    </div>
-                </div>
-
-                <!-- Rebate Calculation Details -->
-                <div id="rebateDetails" class="rebate-details-section">
-                    <h3 id="rebateDetailsTitle">Rebate Calculation</h3>
-                    <div id="rebateDetailsContent" class="rebate-details-content">
-                        <!-- Dynamically populated -->
-                    </div>
-                </div>
             </div>
         </section>
+
+        <!-- Slab Breakdown Modal -->
+        <div id="slabModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalSlabTitle">Tax Slab Breakdown</h3>
+                    <span class="modal-close" onclick="closeSlabModal()">&times;</span>
+                </div>
+                <div id="modalSlabBreakdown" class="modal-slab-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Rebate Details Modal -->
+        <div id="rebateModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalRebateTitle">Rebate Calculation</h3>
+                    <span class="modal-close" onclick="closeRebateModal()">&times;</span>
+                </div>
+                <div id="modalRebateDetails" class="modal-rebate-content">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Exempted Income Modal -->
+        <div id="exemptedModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalExemptedTitle">Exempted Income Calculation</h3>
+                    <span class="modal-close" onclick="closeExemptedModal()">&times;</span>
+                </div>
+                <div id="modalExemptedDetails" class="modal-exempted-content">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
 
         <!-- Info Section -->
         <section class="info-section glass-card">

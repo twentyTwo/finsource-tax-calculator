@@ -60,7 +60,10 @@ const translations = {
         rebateCalcMax: "Maximum Rebate Limit",
         rebateSelected: "Selected Rebate (Minimum)",
         noTaxDue: "No tax payable - Your income is below the taxable threshold",
-        refundScenario: "Refund Due - Employer deposited more than required"
+        refundScenario: "Refund Due - Employer deposited more than required",
+        modalSlabTitle: "Tax Slab Breakdown",
+        modalRebateTitle: "Rebate Calculation",
+        modalExemptedTitle: "Exempted Income Calculation"
     },
     bn: {
         mainTitle: "বাংলাদেশ আয়কর ক্যালকুলেটর",
@@ -122,7 +125,10 @@ const translations = {
         rebateCalcMax: "সর্বোচ্চ রেয়াত সীমা",
         rebateSelected: "নির্বাচিত রেয়াত (ন্যূনতম)",
         noTaxDue: "কোন কর প্রদেয় নয় - আপনার আয় করযোগ্য সীমার নিচে",
-        refundScenario: "ফেরত প্রদেয় - নিয়োগকর্তা প্রয়োজনের চেয়ে বেশি জমা করেছেন"
+        refundScenario: "ফেরত প্রদেয় - নিয়োগকর্তা প্রয়োজনের চেয়ে বেশি জমা করেছেন",
+        modalSlabTitle: "কর স্ল্যাব বিবরণ",
+        modalRebateTitle: "রেয়াত গণনা",
+        modalExemptedTitle: "করমুক্ত আয় গণনা"
     }
 };
 
@@ -453,12 +459,6 @@ function displayResults(results) {
     document.getElementById('employerPaid').textContent = formatCurrency(results.employerDeposit);
     document.getElementById('remainingDue').textContent = formatCurrency(results.netPayable);
     
-    // Display slab breakdown
-    displaySlabBreakdown(results.slabBreakdown);
-    
-    // Display rebate details
-    displayRebateDetails(results.rebateDetails);
-    
     // Handle special cases
     if (results.isRefund) {
         const remainingDueElement = document.getElementById('remainingDue');
@@ -473,44 +473,224 @@ function displayResults(results) {
     }
 }
 
-// Display Slab Breakdown
-function displaySlabBreakdown(slabs) {
-    const container = document.getElementById('slabBreakdown');
-    container.innerHTML = '';
+// Modal Functions for Slab Breakdown
+function showSlabBreakdown() {
+    const modal = document.getElementById('slabModal');
+    const modalContent = document.getElementById('modalSlabBreakdown');
     
-    slabs.forEach(slab => {
-        const slabItem = document.createElement('div');
-        slabItem.className = `slab-item ${slab.applied ? 'applied' : ''}`;
+    // Get current results to display slab breakdown
+    const grossIncome = parseFormattedNumber(elements.grossIncome.value);
+    if (grossIncome <= 0) {
+        alert(currentLanguage === 'en' 
+            ? 'Please calculate tax first to view slab breakdown' 
+            : 'স্ল্যাব বিবরণ দেখার জন্য প্রথমে কর গণনা করুন');
+        return;
+    }
+    
+    const results = calculateTax(grossIncome, 
+        parseFormattedNumber(elements.investmentAmount.value), 
+        parseFormattedNumber(elements.employerDeposit.value));
+    
+    // Populate modal with slab breakdown
+    modalContent.innerHTML = '';
+    
+    let totalTax = 0;
+    
+    // Create table structure
+    const table = document.createElement('table');
+    table.className = 'slab-table';
+    
+    // Table header
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `
+        <th>${currentLanguage === 'en' ? 'Range' : 'সীমা'}</th>
+        <th>${currentLanguage === 'en' ? 'Rate' : 'হার'}</th>
+        <th>${currentLanguage === 'en' ? 'Calculated Tax' : 'গণনাকৃত কর'}</th>
+    `;
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    // Table body
+    const tbody = document.createElement('tbody');
+    
+    results.slabBreakdown.forEach(slab => {
+        const row = document.createElement('tr');
+        row.className = slab.applied ? 'applied' : '';
         
         const rangeText = slab.max === Infinity 
             ? `${formatNumber(slab.min)}+`
             : `${formatNumber(slab.min)} - ${formatNumber(slab.max)}`;
         
-        slabItem.innerHTML = `
-            <span class="slab-range">${rangeText}</span>
-            <span class="slab-rate">${(slab.rate * 100).toFixed(0)}%</span>
-            <span class="slab-tax">${formatCurrency(slab.taxAmount)}</span>
+        row.innerHTML = `
+            <td class="slab-range">${rangeText}</td>
+            <td class="slab-rate">${(slab.rate * 100).toFixed(0)}%</td>
+            <td class="slab-tax">${formatCurrency(slab.taxAmount)}</td>
         `;
         
-        container.appendChild(slabItem);
+        tbody.appendChild(row);
+        totalTax += slab.taxAmount;
     });
+    
+    // Add total row
+    const totalRow = document.createElement('tr');
+    totalRow.className = 'total-row';
+    totalRow.innerHTML = `
+        <td colspan="2" class="total-label">${currentLanguage === 'en' ? 'Total Tax' : 'মোট কর'}</td>
+        <td class="total-amount">${formatCurrency(totalTax)}</td>
+    `;
+    tbody.appendChild(totalRow);
+    
+    table.appendChild(tbody);
+    modalContent.appendChild(table);
+    
+    // Show modal
+    modal.style.display = 'block';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
 }
 
-// Display Rebate Details
-function displayRebateDetails(rebateDetails) {
-    const container = document.getElementById('rebateDetailsContent');
+function closeSlabModal() {
+    const modal = document.getElementById('slabModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Modal Functions for Rebate Details
+function showRebateDetails() {
+    const modal = document.getElementById('rebateModal');
+    const modalContent = document.getElementById('modalRebateDetails');
     
+    // Get current results to display rebate details
+    const grossIncome = parseFormattedNumber(elements.grossIncome.value);
+    if (grossIncome <= 0) {
+        alert(currentLanguage === 'en' 
+            ? 'Please calculate tax first to view rebate details' 
+            : 'রেয়াত বিবরণ দেখার জন্য প্রথমে কর গণনা করুন');
+        return;
+    }
+    
+    const results = calculateTax(grossIncome, 
+        parseFormattedNumber(elements.investmentAmount.value), 
+        parseFormattedNumber(elements.employerDeposit.value));
+    
+    // Populate modal with rebate details
     const t = translations[currentLanguage];
     
-    container.innerHTML = `
-        <p><strong>${t.rebateCalc3Percent}:</strong> ${formatCurrency(rebateDetails.rebate3Percent)}</p>
-        <p><strong>${t.rebateCalc15Percent}:</strong> ${formatCurrency(rebateDetails.rebate15Percent)}</p>
-        <p><strong>${t.rebateCalcMax}:</strong> ${formatCurrency(rebateDetails.maxRebate)}</p>
+    modalContent.innerHTML = `
+        <p><strong>${t.rebateCalc3Percent}:</strong> ${formatCurrency(results.rebateDetails.rebate3Percent)}</p>
+        <p><strong>${t.rebateCalc15Percent}:</strong> ${formatCurrency(results.rebateDetails.rebate15Percent)}</p>
+        <p><strong>${t.rebateCalcMax}:</strong> ${formatCurrency(results.rebateDetails.maxRebate)}</p>
         <p style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(6, 182, 212, 0.3);">
-            <strong>${t.rebateSelected}:</strong> ${formatCurrency(rebateDetails.selectedRebate)}
+            <strong>${t.rebateSelected}:</strong> ${formatCurrency(results.rebateDetails.selectedRebate)}
         </p>
     `;
+    
+    // Show modal
+    modal.style.display = 'block';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
 }
+
+function closeRebateModal() {
+    const modal = document.getElementById('rebateModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Modal Functions for Exempted Income
+function showExemptedIncome() {
+    const modal = document.getElementById('exemptedModal');
+    const modalContent = document.getElementById('modalExemptedDetails');
+    
+    // Get current results to display exempted income calculation
+    const grossIncome = parseFormattedNumber(elements.grossIncome.value);
+    if (grossIncome <= 0) {
+        alert(currentLanguage === 'en' 
+            ? 'Please calculate tax first to view exempted income details' 
+            : 'করমুক্ত আয়ের বিবরণ দেখার জন্য প্রথমে কর গণনা করুন');
+        return;
+    }
+    
+    const results = calculateTax(grossIncome, 
+        parseFormattedNumber(elements.investmentAmount.value), 
+        parseFormattedNumber(elements.employerDeposit.value));
+    
+    // Calculate the two options
+    const option1 = grossIncome / TAX_CONFIG.EXEMPTION_DIVISOR;
+    const option2 = TAX_CONFIG.MAX_EXEMPTION;
+    const exemptedIncome = Math.min(option1, option2);
+    
+    // Populate modal with exempted income calculation
+    const t = translations[currentLanguage];
+    
+    modalContent.innerHTML = `
+        <div class="calculation-step">
+            <h4>${currentLanguage === 'en' ? 'Option 1: Gross Income ÷ 3' : 'বিকল্প ১: মোট আয় ÷ ৩'}</h4>
+            <p>${formatCurrency(grossIncome)} ÷ 3 = ${formatCurrency(option1)}</p>
+        </div>
+        
+        <div class="calculation-step">
+            <h4>${currentLanguage === 'en' ? 'Option 2: Maximum Exemption Limit' : 'বিকল্প ২: সর্বোচ্চ করমুক্ত সীমা'}</h4>
+            <p>${formatCurrency(TAX_CONFIG.MAX_EXEMPTION)}</p>
+        </div>
+        
+        <div class="final-result">
+            <p>${currentLanguage === 'en' ? 'Exempted Income (Minimum of above)' : 'করমুক্ত আয় (উপরের মধ্যে সর্বনিম্ন)'}</p>
+            <div class="amount">${formatCurrency(exemptedIncome)}</div>
+        </div>
+    `;
+    
+    // Show modal
+    modal.style.display = 'block';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+}
+
+function closeExemptedModal() {
+    const modal = document.getElementById('exemptedModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside (update to handle all modals)
+window.onclick = function(event) {
+    const slabModal = document.getElementById('slabModal');
+    const rebateModal = document.getElementById('rebateModal');
+    const exemptedModal = document.getElementById('exemptedModal');
+    
+    if (event.target === slabModal) {
+        closeSlabModal();
+    }
+    if (event.target === rebateModal) {
+        closeRebateModal();
+    }
+    if (event.target === exemptedModal) {
+        closeExemptedModal();
+    }
+}
+
+// Close modal on Escape key (update to handle all modals)
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const slabModal = document.getElementById('slabModal');
+        const rebateModal = document.getElementById('rebateModal');
+        const exemptedModal = document.getElementById('exemptedModal');
+        
+        if (slabModal.style.display === 'block') {
+            closeSlabModal();
+        }
+        if (rebateModal.style.display === 'block') {
+            closeRebateModal();
+        }
+        if (exemptedModal.style.display === 'block') {
+            closeExemptedModal();
+        }
+    }
+});
 
 // Handle Reset
 function handleReset() {
