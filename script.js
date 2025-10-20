@@ -69,7 +69,7 @@ const translations = {
         modalExemptedTitle: "Exempted Income Calculation"
     },
     bn: {
-        mainTitle: "বাংলাদেশ আয়কর ক্যালকুলেটর",
+        mainTitle: "ফিনসোর্স আয়কর ক্যালকুলেটর",
         fiscalYear: "অর্থবছর ২০২৫-২৬",
         incomeTitle: "আয়ের তথ্য",
         labelGender: "লিঙ্গ",
