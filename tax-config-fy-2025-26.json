@@ -4,7 +4,7 @@
   "MAX_REBATE": 1000000,
   "REBATE_RATE_TAXABLE": 0.03,
   "REBATE_RATE_INVESTMENT": 0.15,
-  "TAX_SLABS": [
+  "TAX_SLABS_MALE": [
     { "min": 0, "max": 350000, "rate": 0 },
     { "min": 350001, "max": 450000, "rate": 0.05 },
     { "min": 450001, "max": 850000, "rate": 0.10 },
@@ -12,5 +12,14 @@
     { "min": 1350001, "max": 1850000, "rate": 0.20 },
     { "min": 1850001, "max": 3850000, "rate": 0.25 },
     { "min": 3850001, "max": "Infinity", "rate": 0.30 }
+  ],
+  "TAX_SLABS_FEMALE": [
+    { "min": 0, "max": 400000, "rate": 0 },
+    { "min": 400001, "max": 500000, "rate": 0.05 },
+    { "min": 500001, "max": 900000, "rate": 0.10 },
+    { "min": 900001, "max": 1400000, "rate": 0.15 },
+    { "min": 1400001, "max": 1900000, "rate": 0.20 },
+    { "min": 1900001, "max": 3900000, "rate": 0.25 },
+    { "min": 3900001, "max": "Infinity", "rate": 0.30 }
   ]
 }

@@ -190,6 +190,55 @@ body {
     color: var(--text-secondary);
 }
 
+/* Gender Toggle */
+.gender-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--bg-primary);
+    width: auto;
+    max-width: 200px;
+}
+
+.gender-btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-right: 1px solid var(--border-color);
+    text-align: center;
+    line-height: 1.3;
+    flex: 1;
+}
+
+.gender-btn:last-child {
+    border-right: none;
+}
+
+.gender-btn.active {
+    color: var(--bg-primary);
+    background: var(--primary-color);
+    font-weight: 600;
+}
+
+.gender-btn:hover:not(.active) {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.gender-btn:hover:not(.gender-toggle input[type="radio"]:checked + .gender-btn) {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.gender-toggle input[type="radio"]:checked + .gender-btn:hover {
+    background: var(--primary-hover);
+}
+
 /* Buttons */
 .button-group {
     display: flex;

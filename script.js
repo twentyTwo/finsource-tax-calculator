@@ -1,9 +1,12 @@
 // Translation Data
 const translations = {
     en: {
-        mainTitle: "Bangladesh Income Tax Calculator",
+        mainTitle: "Finsource Income Tax Calculator",
         fiscalYear: "Fiscal Year 2025-26",
         incomeTitle: "Income Information",
+        labelGender: "Gender",
+        genderMaleBtn: "Male",
+        genderFemaleBtn: "Female",
         labelGrossIncome: "Gross Annual Income (BDT)",
         helpGrossIncome: "Enter your total annual gross income",
         labelInvestment: "Investment Amount (BDT)",
@@ -69,6 +72,9 @@ const translations = {
         mainTitle: "বাংলাদেশ আয়কর ক্যালকুলেটর",
         fiscalYear: "অর্থবছর ২০২৫-২৬",
         incomeTitle: "আয়ের তথ্য",
+        labelGender: "লিঙ্গ",
+        genderMaleBtn: "পুরুষ",
+        genderFemaleBtn: "মহিলা",
         labelGrossIncome: "মোট বার্ষিক আয় (টাকা)",
         helpGrossIncome: "আপনার মোট বার্ষিক আয় লিখুন",
         labelInvestment: "বিনিয়োগের পরিমাণ (টাকা)",
@@ -157,8 +163,13 @@ async function loadTaxConfig() {
         }
         const config = await response.json();
 
-        // Convert "Infinity" string back to Infinity value
-        config.TAX_SLABS = config.TAX_SLABS.map(slab => ({
+        // Convert "Infinity" string back to Infinity value for both male and female slabs
+        config.TAX_SLABS_MALE = config.TAX_SLABS_MALE.map(slab => ({
+            ...slab,
+            max: slab.max === "Infinity" ? Infinity : slab.max
+        }));
+        
+        config.TAX_SLABS_FEMALE = config.TAX_SLABS_FEMALE.map(slab => ({
             ...slab,
             max: slab.max === "Infinity" ? Infinity : slab.max
         }));
@@ -190,6 +201,11 @@ function setupEventListeners() {
     elements.resetBtn.addEventListener('click', handleReset);
     elements.langToggle.addEventListener('click', toggleLanguage);
     
+    // Gender button listeners
+    document.querySelectorAll('.gender-btn').forEach(btn => {
+        btn.addEventListener('click', handleGenderChange);
+    });
+    
     // Format input as user types
     [elements.grossIncome, elements.investmentAmount, elements.employerDeposit].forEach(input => {
         input.addEventListener('input', handleInputFormat);
@@ -197,10 +213,20 @@ function setupEventListeners() {
     });
 }
 
-// Input Formatting
-function handleInputFormat(e) {
-    let value = e.target.value.replace(/[^0-9]/g, '');
-    e.target.value = value;
+// Handle Gender Change
+function handleGenderChange(e) {
+    // Remove active class from all buttons
+    document.querySelectorAll('.gender-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Add active class to clicked button
+    e.target.classList.add('active');
+    
+    // If results are already displayed, recalculate with new gender
+    if (!elements.resultsSection.classList.contains('hidden')) {
+        handleCalculate(new Event('submit'));
+    }
 }
 
 function handleInputBlur(e) {
@@ -233,6 +259,7 @@ function handleCalculate(e) {
     const grossIncome = parseFormattedNumber(elements.grossIncome.value);
     const investmentAmount = parseFormattedNumber(elements.investmentAmount.value);
     const employerDeposit = parseFormattedNumber(elements.employerDeposit.value);
+    const gender = document.querySelector('.gender-btn.active')?.getAttribute('data-gender') || 'male';
     
     // Validate
     if (grossIncome <= 0) {
@@ -243,7 +270,7 @@ function handleCalculate(e) {
     }
     
     // Calculate
-    const results = calculateTax(grossIncome, investmentAmount, employerDeposit);
+    const results = calculateTax(grossIncome, investmentAmount, employerDeposit, gender);
     
     // Display results
     displayResults(results);
@@ -253,7 +280,7 @@ function handleCalculate(e) {
 }
 
 // Tax Calculation Engine
-function calculateTax(grossIncome, investmentAmount, employerDeposit) {
+function calculateTax(grossIncome, investmentAmount, employerDeposit, gender = 'male') {
     // 1. Calculate Exempted Income
     const exemptedIncome = Math.min(
         grossIncome / TAX_CONFIG.EXEMPTION_DIVISOR,
@@ -264,7 +291,7 @@ function calculateTax(grossIncome, investmentAmount, employerDeposit) {
     const taxableIncome = Math.max(0, grossIncome - exemptedIncome);
     
     // 3. Calculate Tax Before Rebate (Progressive Slabs)
-    const { totalTax, slabBreakdown } = calculateProgressiveTax(taxableIncome);
+    const { totalTax, slabBreakdown } = calculateProgressiveTax(taxableIncome, gender);
     
     // 4. Calculate Rebate
     const rebateDetails = calculateRebate(taxableIncome, investmentAmount);
@@ -308,12 +335,14 @@ function calculateTax(grossIncome, investmentAmount, employerDeposit) {
 }
 
 // Calculate Progressive Tax
-function calculateProgressiveTax(taxableIncome) {
+function calculateProgressiveTax(taxableIncome, gender = 'male') {
+    const taxSlabs = gender === 'female' ? TAX_CONFIG.TAX_SLABS_FEMALE : TAX_CONFIG.TAX_SLABS_MALE;
+    
     let totalTax = 0;
     const slabBreakdown = [];
     
-    for (let i = 0; i < TAX_CONFIG.TAX_SLABS.length; i++) {
-        const slab = TAX_CONFIG.TAX_SLABS[i];
+    for (let i = 0; i < taxSlabs.length; i++) {
+        const slab = taxSlabs[i];
         
         if (taxableIncome <= slab.min - 1) {
             // Income doesn't reach this slab
@@ -348,8 +377,8 @@ function calculateProgressiveTax(taxableIncome) {
         // If income is within this slab, we're done
         if (taxableIncome <= slab.max) {
             // Add remaining slabs as not applied
-            for (let j = i + 1; j < TAX_CONFIG.TAX_SLABS.length; j++) {
-                const remainingSlab = TAX_CONFIG.TAX_SLABS[j];
+            for (let j = i + 1; j < taxSlabs.length; j++) {
+                const remainingSlab = taxSlabs[j];
                 slabBreakdown.push({
                     min: remainingSlab.min,
                     max: remainingSlab.max,
@@ -469,7 +498,7 @@ function displayResults(results) {
     
     if (results.totalTax === 0) {
         const netPayableElement = document.getElementById('netPayable');
-        netPayableElement.textContent = translations[currentLanguage].noTaxDue;
+        netPayableElement.textContent = '৳ 0';
     }
 }
 
@@ -489,7 +518,8 @@ function showSlabBreakdown() {
     
     const results = calculateTax(grossIncome, 
         parseFormattedNumber(elements.investmentAmount.value), 
-        parseFormattedNumber(elements.employerDeposit.value));
+        parseFormattedNumber(elements.employerDeposit.value),
+        document.querySelector('.gender-btn.active')?.getAttribute('data-gender') || 'male');
     
     // Populate modal with slab breakdown
     modalContent.innerHTML = '';
@@ -573,7 +603,8 @@ function showRebateDetails() {
     
     const results = calculateTax(grossIncome, 
         parseFormattedNumber(elements.investmentAmount.value), 
-        parseFormattedNumber(elements.employerDeposit.value));
+        parseFormattedNumber(elements.employerDeposit.value),
+        document.querySelector('.gender-btn.active')?.getAttribute('data-gender') || 'male');
     
     // Populate modal with rebate details
     const t = translations[currentLanguage];
@@ -616,7 +647,8 @@ function showExemptedIncome() {
     
     const results = calculateTax(grossIncome, 
         parseFormattedNumber(elements.investmentAmount.value), 
-        parseFormattedNumber(elements.employerDeposit.value));
+        parseFormattedNumber(elements.employerDeposit.value),
+        document.querySelector('.gender-btn.active')?.getAttribute('data-gender') || 'male');
     
     // Calculate the two options
     const option1 = grossIncome / TAX_CONFIG.EXEMPTION_DIVISOR;
