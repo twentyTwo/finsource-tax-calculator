@@ -15,11 +15,11 @@ const translations = {
         tableCalculation: "Calculation",
         tableAmount: "Amount (BDT)",
         yearlySalaryLabel: "Yearly Salary",
-        yearlySalaryCalc: "Monthly Salary × 12",
-        thirteenthSalaryLabel: "13th Salary + Performance Bonus",
-        thirteenthSalaryCalc: "≈ Monthly Salary × 1.4",
+        yearlySalaryCalc: "≈ Monthly Salary × 12",
+        thirteenthSalaryLabel: "Performance Bonus",
+        thirteenthSalaryCalc: "Monthly Salary × 0.4",
         festivalBonusLabel: "Festival Bonus",
-        festivalBonusCalc: "≈ Monthly Salary × 1.2",
+        festivalBonusCalc: "Monthly Salary × 1.2",
         grossSalaryLabel: "Gross Salary (Approximate)",
         grossSalaryCalc: "Sum of above",
         taxableIncomeLabel: "Taxable Income",
@@ -57,9 +57,9 @@ const translations = {
         tableCalculation: "গণনা",
         tableAmount: "পরিমাণ (টাকা)",
         yearlySalaryLabel: "বার্ষিক বেতন",
-        yearlySalaryCalc: "≈মাসিক বেতন × ১২",
-        thirteenthSalaryLabel: "১৩তম বেতন + পারফরম্যান্স বোনাস",
-        thirteenthSalaryCalc: "≈ মাসিক বেতন × ১.৪",
+        yearlySalaryCalc: "মাসিক বেতন × ১২",
+        thirteenthSalaryLabel: "পারফরম্যান্স বোনাস",
+        thirteenthSalaryCalc: "মাসিক বেতন × 0.৪",
         festivalBonusLabel: "উৎসব বোনাস",
         festivalBonusCalc: "মাসিক বেতন × ১.২",
         grossSalaryLabel: "মোট বেতন (আনুমানিক)",
@@ -155,7 +155,7 @@ function calculateInvestment(monthlySalary) {
     const yearlySalary = monthlySalary * 12;
     
     // 2. Calculate 13th Salary + Performance Bonus (approx 1.4 times monthly salary)
-    const thirteenthSalaryBonus = monthlySalary * 1.4;
+    const thirteenthSalaryBonus = monthlySalary * 0.4;
     
     // 3. Calculate Festival Bonus (approx 1.2 times monthly salary)
     const festivalBonus = monthlySalary * 1.2;
