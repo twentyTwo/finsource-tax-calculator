@@ -617,16 +617,36 @@ function showRebateDetails() {
         parseFormattedNumber(elements.employerDeposit.value),
         document.querySelector('.gender-btn.active')?.getAttribute('data-gender') || 'male');
     
-    // Populate modal with rebate details
+    // Populate modal with rebate details using table format
     const t = translations[currentLanguage];
     
     modalContent.innerHTML = `
-        <p><strong>${t.rebateCalc3Percent}:</strong> ${formatCurrency(results.rebateDetails.rebate3Percent)}</p>
-        <p><strong>${t.rebateCalc15Percent}:</strong> ${formatCurrency(results.rebateDetails.rebate15Percent)}</p>
-        <p><strong>${t.rebateCalcMax}:</strong> ${formatCurrency(results.rebateDetails.maxRebate)}</p>
-        <p style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid rgba(6, 182, 212, 0.3);">
-            <strong>${t.rebateSelected}:</strong> ${formatCurrency(results.rebateDetails.selectedRebate)}
-        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>${currentLanguage === 'en' ? 'Component' : 'উপাদান'}</th>
+                    <th>${currentLanguage === 'en' ? 'Amount' : 'পরিমাণ'}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${t.rebateCalc3Percent}</td>
+                    <td>${formatCurrency(results.rebateDetails.rebate3Percent)}</td>
+                </tr>
+                <tr>
+                    <td>${t.rebateCalc15Percent}</td>
+                    <td>${formatCurrency(results.rebateDetails.rebate15Percent)}</td>
+                </tr>
+                <tr>
+                    <td>${t.rebateCalcMax}</td>
+                    <td>${formatCurrency(results.rebateDetails.maxRebate)}</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>${t.rebateSelected}</td>
+                    <td>${formatCurrency(results.rebateDetails.selectedRebate)}</td>
+                </tr>
+            </tbody>
+        </table>
     `;
     
     // Show modal
@@ -666,24 +686,36 @@ function showExemptedIncome() {
     const option2 = TAX_CONFIG.MAX_EXEMPTION;
     const exemptedIncome = Math.min(option1, option2);
     
-    // Populate modal with exempted income calculation
+    // Populate modal with exempted income calculation using table format
     const t = translations[currentLanguage];
     
     modalContent.innerHTML = `
-        <div class="calculation-step">
-            <h4>${currentLanguage === 'en' ? 'Option 1: Gross Income ÷ 3' : 'বিকল্প ১: মোট আয় ÷ ৩'}</h4>
-            <p>${formatCurrency(grossIncome)} ÷ 3 = ${formatCurrency(option1)}</p>
-        </div>
-        
-        <div class="calculation-step">
-            <h4>${currentLanguage === 'en' ? 'Option 2: Maximum Exemption Limit' : 'বিকল্প ২: সর্বোচ্চ করমুক্ত সীমা'}</h4>
-            <p>${formatCurrency(TAX_CONFIG.MAX_EXEMPTION)}</p>
-        </div>
-        
-        <div class="final-result">
-            <p>${currentLanguage === 'en' ? 'Exempted Income (Minimum of above)' : 'করমুক্ত আয় (উপরের মধ্যে সর্বনিম্ন)'}</p>
-            <div class="amount">${formatCurrency(exemptedIncome)}</div>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>${currentLanguage === 'en' ? 'Component' : 'উপাদান'}</th>
+                    <th>${currentLanguage === 'en' ? 'Calculation' : 'গণনা'}</th>
+                    <th>${currentLanguage === 'en' ? 'Amount' : 'পরিমাণ'}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${currentLanguage === 'en' ? 'Option 1: Gross Income ÷ 3' : 'বিকল্প ১: মোট আয় ÷ ৩'}</td>
+                    <td>${formatCurrency(grossIncome)} ÷ 3</td>
+                    <td>${formatCurrency(option1)}</td>
+                </tr>
+                <tr>
+                    <td>${currentLanguage === 'en' ? 'Option 2: Maximum Exemption Limit' : 'বিকল্প ২: সর্বোচ্চ করমুক্ত সীমা'}</td>
+                    <td>${currentLanguage === 'en' ? 'Fixed Limit' : 'নির্দিষ্ট সীমা'}</td>
+                    <td>${formatCurrency(TAX_CONFIG.MAX_EXEMPTION)}</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td>${currentLanguage === 'en' ? 'Exempted Income (Minimum)' : 'করমুক্ত আয় (সর্বনিম্ন)'}</td>
+                    <td>${currentLanguage === 'en' ? 'Minimum of above' : 'উপরের মধ্যে সর্বনিম্ন'}</td>
+                    <td>${formatCurrency(exemptedIncome)}</td>
+                </tr>
+            </tbody>
+        </table>
     `;
     
     // Show modal
