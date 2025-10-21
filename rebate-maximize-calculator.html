@@ -164,6 +164,9 @@
                     পরবর্তী অর্থবছরের জন্য আপনার কর রেয়াত সর্বোচ্চ করতে এই ক্যালকুলেটর ব্যবহার করুন।
                     আপনাকে কত বিনিয়োগ করতে হবে তা দেখতে আপনার বর্তমান মাসিক বেতন লিখুন।
                 </p>
+                <p id="approximateDisclaimer" style="margin-top: 0.5rem; font-size: 0.8125rem; color: var(--text-light); font-style: italic;">
+                    কেন আনুমানিক? কারণ বেতন বৃদ্ধি সাধারণত আগস্ট মাসে হয় এবং জুলাই মাসের বেতন পুরনো হারে পাওয়া যায়।
+                </p>
             </div>
 
             <form id="rebateForm" novalidate>
@@ -234,6 +237,11 @@
                             <td id="festivalBonusCalc">মাসিক বেতন × ১.২</td>
                             <td id="festivalBonus">৳ 0</td>
                         </tr>
+                        <tr>
+                            <td id="extraSalaryLabel">অতিরিক্ত বেতন (১৬ দিন)</td>
+                            <td id="extraSalaryCalc">মাসিক বেতন × ১৬/৩০</td>
+                            <td id="extraSalary">৳ 0</td>
+                        </tr>
                         <tr class="highlight-row">
                             <td id="grossSalaryLabel">মোট বেতন (আনুমানিক)</td>
                             <td id="grossSalaryCalc"></td>
@@ -251,7 +259,7 @@
                         </tr>
                         <tr>
                             <td id="providentFundLabel">ভবিষ্য তহবিল</td>
-                            <td id="providentFundCalc">মাসিক বেতন × ১২ × ১২%</td>
+                            <td id="providentFundCalc">মাসিক বেতন × ১২ × ৬%</td>
                             <td id="providentFund">৳ 0</td>
                         </tr>
                         <tr class="highlight-row">
@@ -265,7 +273,7 @@
                 <div class="formula-explanation" id="formulaExplanation">
                     <strong>সূত্রের ব্যাখ্যা:</strong> সর্বোচ্চ কর রেয়াত পেতে, আপনাকে আপনার করযোগ্য আয়ের ২০% বিনিয়োগ করতে হবে
                     (যেহেতু বিনিয়োগের ১৫% করযোগ্য আয়ের ৩% এর সমান হওয়া উচিত)। আপনার ভবিষ্য তহবিল অবদান
-                    (মৌলিক বেতনের ১২%) ইতিমধ্যেই বিনিয়োগ হিসাবে গণনা করা হয়।
+                    (মৌলিক বেতনের ৬%) ইতিমধ্যেই বিনিয়োগ হিসাবে গণনা করা হয়।
                 </div>
             </div>
         </section>
