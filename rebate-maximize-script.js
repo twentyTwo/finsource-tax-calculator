@@ -69,7 +69,7 @@ const translations = {
         festivalBonusLabel: "উৎসব বোনাস",
         festivalBonusCalc: "মাসিক বেতন × ১.২",
         grossSalaryLabel: "মোট বেতন (আনুমানিক)",
-        grossSalaryCalc: "উপরের সমষ্টি",
+        grossSalaryCalc: "",
         taxableIncomeLabel: "করযোগ্য আয়",
         taxableIncomeCalc: "মোট বেতন - করমুক্ত আয়",
         maxInvestLimitLabel: "সর্বোচ্চ বিনিয়োগ সীমা",
