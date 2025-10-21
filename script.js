@@ -143,7 +143,7 @@ const translations = {
 };
 
 // State Management
-let currentLanguage = 'en';
+let currentLanguage = 'bn';
 let TAX_CONFIG = null;
 
 // DOM Elements
@@ -779,7 +779,9 @@ function applyTranslations() {
     elements.employerDeposit.placeholder = placeholderValue;
     
     // Update language toggle button text
-    document.getElementById('langText').textContent = t.langText;
+    if (document.getElementById('langText')) {
+        document.getElementById('langText').textContent = t.langText;
+    }
 }
 
 // Save Language Preference
@@ -800,6 +802,7 @@ function loadLanguagePreference() {
     if (saved && (saved === 'en' || saved === 'bn')) {
         currentLanguage = saved;
     }
+    // If no saved preference, keep the default (bn)
 }
 
 // Initialize on DOM Load

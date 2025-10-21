@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,6 +96,45 @@
             font-style: italic;
             margin-top: 0.25rem;
         }
+
+        .investment-section {
+            margin-top: var(--spacing-lg);
+        }
+
+        .investment-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .investment-item {
+            background: rgba(37, 99, 235, 0.03);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            transition: all var(--transition-fast);
+        }
+
+        .investment-item:hover {
+            background: rgba(37, 99, 235, 0.06);
+            border-color: rgba(37, 99, 235, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .investment-item h4 {
+            margin: 0 0 var(--spacing-xs) 0;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .investment-item p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -105,36 +144,36 @@
         <!-- Language Toggle -->
         <div class="language-toggle">
             <button id="langToggle" class="lang-btn" aria-label="Toggle language between English and Bangla">
-                <span id="langText">বাংলা</span>
+                <span id="langText">English</span>
             </button>
         </div>
 
         <!-- Header -->
         <header class="header">
             <a href="index.html" class="back-link">
-                ← <span id="backToMain">Back to Main Calculator</span>
+                ← <span id="backToMain">প্রধান আয়কর ক্যালকুলেটরে ফিরে যান</span>
             </a>
-            <h1 id="mainTitle">Rebate Maximize Calculator</h1>
-            <p id="fiscalYear">Plan Your Investments for Maximum Tax Rebate</p>
+            <h1 id="mainTitle">রেয়াত সর্বোচ্চকরণ ক্যালকুলেটর</h1>
+            <p id="fiscalYear">সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন</p>
         </header>
 
         <!-- Main Calculator Card -->
         <main class="calculator-card glass-card">
             <div class="calculator-description">
                 <p id="descriptionText">
-                    Use this calculator to plan your investments for the next financial year to maximize your tax rebate. 
-                    Enter your current monthly salary to see how much you need to invest.
+                    পরবর্তী অর্থবছরের জন্য আপনার কর রেয়াত সর্বোচ্চ করতে এই ক্যালকুলেটর ব্যবহার করুন।
+                    আপনাকে কত বিনিয়োগ করতে হবে তা দেখতে আপনার বর্তমান মাসিক বেতন লিখুন।
                 </p>
             </div>
 
             <form id="rebateForm" novalidate>
                 <!-- Current Monthly Salary Section -->
                 <section class="input-section">
-                    <h2 id="incomeTitle">Income Information</h2>
+                    <h2 id="incomeTitle">আয়ের তথ্য</h2>
                     
                     <div class="form-group">
                         <label for="monthlySalary" id="labelMonthlySalary">
-                            Current Monthly Salary (BDT)
+                            বর্তমান মাসিক বেতন (টাকা)
                             <span class="required" aria-label="required">*</span>
                         </label>
                         <input 
@@ -148,7 +187,7 @@
                             autocomplete="off"
                         >
                         <small id="monthlySalaryHelp" class="help-text">
-                            <span id="helpMonthlySalary">Enter your current monthly basic salary</span>
+                            <span id="helpMonthlySalary">আপনার বর্তমান মাসিক বেতন লিখুন</span>
                         </small>
                     </div>
                 </section>
@@ -156,10 +195,10 @@
                 <!-- Calculate Button -->
                 <div class="button-group">
                     <button type="submit" id="calculateBtn" class="btn btn-primary">
-                        <span id="btnCalculate">Calculate Investment Needed</span>
+                        <span id="btnCalculate">প্রয়োজনীয় বিনিয়োগ গণনা করুন</span>
                     </button>
                     <button type="button" id="resetBtn" class="btn btn-secondary">
-                        <span id="btnReset">Reset</span>
+                        <span id="btnReset">রিসেট</span>
                     </button>
                 </div>
             </form>
@@ -168,84 +207,96 @@
         <!-- Results Section -->
         <section id="resultsSection" class="results-section hidden" aria-live="polite">
             <div class="glass-card results-card">
-                <h2 id="resultsTitle">Investment Planning Results</h2>
+                <h2 id="resultsTitle">বিনিয়োগ পরিকল্পনার ফলাফল</h2>
                 
                 <!-- Results Table -->
                 <table class="results-table">
                     <thead>
                         <tr>
-                            <th id="tableComponent">Component</th>
-                            <th id="tableCalculation">Calculation</th>
-                            <th id="tableAmount">Amount (BDT)</th>
+                            <th id="tableComponent">উপাদান</th>
+                            <th id="tableCalculation">গণনা</th>
+                            <th id="tableAmount">পরিমাণ (টাকা)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="yearlySalaryLabel">Yearly Salary</td>
-                            <td id="yearlySalaryCalc">Monthly Salary × 12</td>
+                            <td id="yearlySalaryLabel">বার্ষিক বেতন</td>
+                            <td id="yearlySalaryCalc">মাসিক বেতন × ১২</td>
                             <td id="yearlySalary">৳ 0</td>
                         </tr>
                         <tr>
-                            <td id="thirteenthSalaryLabel">13th Salary + Performance Bonus</td>
-                            <td id="thirteenthSalaryCalc">≈ Monthly Salary × 1.4</td>
+                            <td id="thirteenthSalaryLabel">পারফরম্যান্স বোনাস</td>
+                            <td id="thirteenthSalaryCalc">মাসিক বেতন × ০.৪</td>
                             <td id="thirteenthSalary">৳ 0</td>
                         </tr>
                         <tr>
-                            <td id="festivalBonusLabel">Festival Bonus</td>
-                            <td id="festivalBonusCalc">≈ Monthly Salary × 1.2</td>
+                            <td id="festivalBonusLabel">উৎসব বোনাস</td>
+                            <td id="festivalBonusCalc">মাসিক বেতন × ১.২</td>
                             <td id="festivalBonus">৳ 0</td>
                         </tr>
                         <tr class="highlight-row">
-                            <td id="grossSalaryLabel">Gross Salary (Approximate)</td>
-                            <td id="grossSalaryCalc">Sum of above</td>
+                            <td id="grossSalaryLabel">মোট বেতন (আনুমানিক)</td>
+                            <td id="grossSalaryCalc"></td>
                             <td id="grossSalary">৳ 0</td>
                         </tr>
                         <tr>
-                            <td id="taxableIncomeLabel">Taxable Income</td>
-                            <td id="taxableIncomeCalc">Gross - Exempted Income</td>
+                            <td id="taxableIncomeLabel">করযোগ্য আয়</td>
+                            <td id="taxableIncomeCalc">মোট বেতন - করমুক্ত আয়</td>
                             <td id="taxableIncome">৳ 0</td>
                         </tr>
                         <tr>
-                            <td id="maxInvestLimitLabel">Max Investment Limit</td>
-                            <td id="maxInvestLimitCalc">(Taxable Income × 0.03) ÷ 0.15</td>
+                            <td id="maxInvestLimitLabel">সর্বোচ্চ বিনিয়োগ সীমা</td>
+                            <td id="maxInvestLimitCalc">(করযোগ্য আয় × ০.০৩) ÷ ০.১৫</td>
                             <td id="maxInvestLimit">৳ 0</td>
                         </tr>
                         <tr>
-                            <td id="providentFundLabel">Provident Fund</td>
-                            <td id="providentFundCalc">Monthly Salary × 12 × 12%</td>
+                            <td id="providentFundLabel">ভবিষ্য তহবিল</td>
+                            <td id="providentFundCalc">মাসিক বেতন × ১২ × ১২%</td>
                             <td id="providentFund">৳ 0</td>
                         </tr>
                         <tr class="highlight-row">
-                            <td id="additionalInvestmentLabel">You Need to Invest</td>
-                            <td id="additionalInvestmentCalc">Max Investment Limit - Provident Fund</td>
+                            <td id="additionalInvestmentLabel">আপনাকে বিনিয়োগ করতে হবে</td>
+                            <td id="additionalInvestmentCalc">সর্বোচ্চ বিনিয়োগ সীমা - ভবিষ্য তহবিল</td>
                             <td id="additionalInvestment">৳ 0</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div class="formula-explanation" id="formulaExplanation">
-                    <strong>Formula Explanation:</strong> To get maximum tax rebate, you need to invest 20% of your taxable income 
-                    (since 15% of investment should be equal to 3% of taxable income). Your provident fund contribution 
-                    (12% of basic salary) is already counted as investment.
+                    <strong>সূত্রের ব্যাখ্যা:</strong> সর্বোচ্চ কর রেয়াত পেতে, আপনাকে আপনার করযোগ্য আয়ের ২০% বিনিয়োগ করতে হবে
+                    (যেহেতু বিনিয়োগের ১৫% করযোগ্য আয়ের ৩% এর সমান হওয়া উচিত)। আপনার ভবিষ্য তহবিল অবদান
+                    (মৌলিক বেতনের ১২%) ইতিমধ্যেই বিনিয়োগ হিসাবে গণনা করা হয়।
                 </div>
             </div>
         </section>
 
-        <!-- Info Section -->
-        <section class="info-section glass-card">
-            <h3 id="infoTitle">How to Maximize Your Rebate</h3>
-            <div class="info-content">
-                <div class="info-item">
-                    <h4 id="infoProvidentFundTitle">1. Provident Fund</h4>
-                    <p id="infoProvidentFundText">Your 12% provident fund contribution is automatically counted as eligible investment for tax rebate.</p>
+        <!-- Investment Categories Section -->
+        <section class="investment-section glass-card">
+            <h3 id="investmentCategoriesTitle">বিনিয়োগ বিভাগ ও সীমা</h3>
+            <div class="investment-content">
+                <div class="investment-item">
+                    <h4 id="sanchaypatraTitle">সঞ্চয়পত্র</h4>
+                    <p id="sanchaypatraLimit">সর্বোচ্চ বিনিয়োগ: ৳ ৫,০০,০০০</p>
                 </div>
-                <div class="info-item">
-                    <h4 id="infoAdditionalInvestmentTitle">2. Additional Investment</h4>
-                    <p id="infoAdditionalInvestmentText">Invest in DPS, insurance, stocks, or government bonds to reach the maximum investment limit.</p>
+                <div class="investment-item">
+                    <h4 id="securitiesTitle">সিকিউরিটিজ</h4>
+                    <p id="securitiesLimit">সর্বোচ্চ বিনিয়োগ: ৳ ৫,০০,০০০</p>
                 </div>
-                <div class="info-item">
-                    <h4 id="infoTimingTitle">3. Timing is Important</h4>
-                    <p id="infoTimingText">Plan your investments throughout the year to maximize your tax benefits for the next financial year.</p>
+                <div class="investment-item">
+                    <h4 id="providentFundTitle">স্বীকৃত প্রভিডেন্ট ফান্ড</h4>
+                    <p id="providentFundLimit">কোন বিনিয়োগ সীমা নেই</p>
+                </div>
+                <div class="investment-item">
+                    <h4 id="dpsTitle">ডিপিএস (ডিপোজিট পেনশন স্কিম)</h4>
+                    <p id="dpsLimit">সর্বোচ্চ বিনিয়োগ: ৳ ১,২০,০০০</p>
+                </div>
+                <div class="investment-item">
+                    <h4 id="lipTitle">জীবন বীমা প্রিমিয়াম (এলআইপি)</h4>
+                    <p id="lipLimit">সর্বোচ্চ: পলিসি মূল্যের ১/১০</p>
+                </div>
+                <div class="investment-item">
+                    <h4 id="shareMarketTitle">শেয়ার বাজারে বিনিয়োগ</h4>
+                    <p id="shareMarketLimit">কোন বিনিয়োগ সীমা নেই</p>
                 </div>
             </div>
         </section>
@@ -253,7 +304,7 @@
         <!-- Footer -->
         <footer class="footer">
             <p id="footerDisclaimer">
-                Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax planning.
+                ডিসক্লেইমার: এই ক্যালকুলেটরটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে। সঠিক কর পরিকল্পনার জন্য একজন কর পেশাদারের সাথে পরামর্শ করুন।
             </p>
             <p class="footer-github">
                 Made with ❤️ on Github. Want to contribute? Create a PULL Request on <a href="https://github.com/twentyTwo/finsource-tax-calculator" target="_blank" rel="noopener">https://github.com/twentyTwo/finsource-tax-calculator</a>

@@ -31,15 +31,21 @@ const translations = {
         additionalInvestmentLabel: "You Need to Invest",
         additionalInvestmentCalc: "Max Investment Limit - Provident Fund",
         formulaExplanation: "Formula Explanation: To get maximum tax rebate, you need to invest 20% of your taxable income (since 15% of investment should be equal to 3% of taxable income). Your provident fund contribution (12% of basic salary) is already counted as investment.",
-        infoTitle: "How to Maximize Your Rebate",
-        infoProvidentFundTitle: "1. Provident Fund",
-        infoProvidentFundText: "Your 12% provident fund contribution is automatically counted as eligible investment for tax rebate.",
-        infoAdditionalInvestmentTitle: "2. Additional Investment",
-        infoAdditionalInvestmentText: "Invest in DPS, insurance, stocks, or government bonds to reach the maximum investment limit.",
-        infoTimingTitle: "3. Timing is Important",
-        infoTimingText: "Plan your investments throughout the year to maximize your tax benefits for the next financial year.",
         footerDisclaimer: "Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax planning.",
         footerCopyright: "© 2025 Finsource Income Tax Calculator | FY 2025-26",
+        investmentCategoriesTitle: "Investment Categories & Limits",
+        sanchaypatraTitle: "Sanchaypatra",
+        sanchaypatraLimit: "Maximum investment: ৳ 5,00,000",
+        securitiesTitle: "Securities",
+        securitiesLimit: "Maximum investment: ৳ 5,00,000",
+        providentFundTitle: "Recognized Provident Fund",
+        providentFundLimit: "No investment limit",
+        dpsTitle: "DPS (Deposit Pension Scheme)",
+        dpsLimit: "Maximum investment: ৳ 1,20,000",
+        lipTitle: "Life Insurance Premium (LIP)",
+        lipLimit: "Maximum: 1/10 of the policy value",
+        shareMarketTitle: "Share Market Investments",
+        shareMarketLimit: "No investment limit",
         langText: "বাংলা"
     },
     bn: {
@@ -73,21 +79,27 @@ const translations = {
         additionalInvestmentLabel: "আপনাকে বিনিয়োগ করতে হবে",
         additionalInvestmentCalc: "সর্বোচ্চ বিনিয়োগ সীমা - ভবিষ্য তহবিল",
         formulaExplanation: "সূত্রের ব্যাখ্যা: সর্বোচ্চ কর রেয়াত পেতে, আপনাকে আপনার করযোগ্য আয়ের ২০% বিনিয়োগ করতে হবে (যেহেতু বিনিয়োগের ১৫% করযোগ্য আয়ের ৩% এর সমান হওয়া উচিত)। আপনার ভবিষ্য তহবিল অবদান (মৌলিক বেতনের ১২%) ইতিমধ্যেই বিনিয়োগ হিসাবে গণনা করা হয়।",
-        infoTitle: "কিভাবে আপনার রেয়াত সর্বোচ্চ করবেন",
-        infoProvidentFundTitle: "১. ভবিষ্য তহবিল",
-        infoProvidentFundText: "আপনার ১২% ভবিষ্য তহবিল অবদান স্বয়ংক্রিয়ভাবে কর রেয়াতের জন্য যোগ্য বিনিয়োগ হিসাবে গণনা করা হয়।",
-        infoAdditionalInvestmentTitle: "২. অতিরিক্ত বিনিয়োগ",
-        infoAdditionalInvestmentText: "সর্বোচ্চ বিনিয়োগ সীমা পৌঁছাতে ডিপিএস, বীমা, স্টক বা সরকারি বন্ডে বিনিয়োগ করুন।",
-        infoTimingTitle: "৩. সময় গুরুত্বপূর্ণ",
-        infoTimingText: "পরবর্তী অর্থবছরের জন্য আপনার কর সুবিধা সর্বোচ্চ করতে বছর জুড়ে আপনার বিনিয়োগ পরিকল্পনা করুন।",
         footerDisclaimer: "ডিসক্লেইমার: এই ক্যালকুলেটরটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে। সঠিক কর পরিকল্পনার জন্য একজন কর পেশাদারের সাথে পরামর্শ করুন।",
         footerCopyright: "© ২০২৫ ফিনসোর্স আয়কর ক্যালকুলেটর | অর্থবছর ২০২৫-২৬",
+        investmentCategoriesTitle: "বিনিয়োগ বিভাগ ও সীমা",
+        sanchaypatraTitle: "সঞ্চয়পত্র",
+        sanchaypatraLimit: "সর্বোচ্চ বিনিয়োগ: ৳ ৫,০০,০০০",
+        securitiesTitle: "সিকিউরিটিজ",
+        securitiesLimit: "সর্বোচ্চ বিনিয়োগ: ৳ ৫,০০,০০০",
+        providentFundTitle: "স্বীকৃত প্রভিডেন্ট ফান্ড",
+        providentFundLimit: "কোন বিনিয়োগ সীমা নেই",
+        dpsTitle: "ডিপিএস (ডিপোজিট পেনশন স্কিম)",
+        dpsLimit: "সর্বোচ্চ বিনিয়োগ: ৳ ১,২০,০০০",
+        lipTitle: "জীবন বীমা প্রিমিয়াম (এলআইপি)",
+        lipLimit: "সর্বোচ্চ: পলিসি মূল্যের ১/১০",
+        shareMarketTitle: "শেয়ার বাজারে বিনিয়োগ",
+        shareMarketLimit: "কোন বিনিয়োগ সীমা নেই",
         langText: "English"
     }
 };
 
 // State Management
-let currentLanguage = 'en';
+let currentLanguage = 'bn';
 
 // Constants
 const MAX_EXEMPTION = 450000;
@@ -285,6 +297,11 @@ function applyTranslations() {
     
     // Update placeholders
     elements.monthlySalary.placeholder = '0';
+    
+    // Update language toggle button text
+    if (document.getElementById('langText')) {
+        document.getElementById('langText').textContent = t.langText;
+    }
 }
 
 // Save Language Preference
@@ -305,6 +322,7 @@ function loadLanguagePreference() {
     if (saved && (saved === 'en' || saved === 'bn')) {
         currentLanguage = saved;
     }
+    // If no saved preference, keep the default (bn)
 }
 
 // Initialize on DOM Load
