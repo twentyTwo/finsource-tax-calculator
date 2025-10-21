@@ -317,23 +317,29 @@ function applyTranslations() {
 
 // Save Language Preference
 function saveLanguagePreference() {
-    localStorage.setItem('rebateCalcLanguage', currentLanguage);
-    // Also save to shared storage for main calculator
+    // Save only to shared storage for both calculators
     localStorage.setItem('sharedLanguage', currentLanguage);
 }
 
 // Load Language Preference
 function loadLanguagePreference() {
-    // Try to load from shared storage first (from main calculator)
+    // Load from shared storage
     let saved = localStorage.getItem('sharedLanguage');
-    if (!saved) {
-        // Fallback to own storage
-        saved = localStorage.getItem('rebateCalcLanguage');
-    }
     if (saved && (saved === 'en' || saved === 'bn')) {
         currentLanguage = saved;
     }
-    // If no saved preference, keep the default (bn)
+    // If no saved preference, set default to Bangla and save it
+    else {
+        currentLanguage = 'bn';
+        saveLanguagePreference();
+    }
+}
+
+// Save language and navigate to another page
+function saveLanguageAndNavigate(event, url) {
+    event.preventDefault();
+    saveLanguagePreference();
+    window.location.href = url;
 }
 
 // Initialize on DOM Load
