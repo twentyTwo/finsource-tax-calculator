@@ -3,6 +3,7 @@ const translations = {
     en: {
         mainTitle: "Finsource Income Tax Calculator",
         fiscalYear: "Fiscal Year 2025-26",
+        privacyNote: "Your privacy is protected. This calculator runs 100% locally in your browser and no data is ever sent to a server. The code is open-source for full transparency.",
         incomeTitle: "Income Information",
         labelGender: "Gender",
         genderMaleBtn: "Male",
@@ -73,6 +74,7 @@ const translations = {
     bn: {
         mainTitle: "ফিনসোর্স আয়কর ক্যালকুলেটর",
         fiscalYear: "অর্থবছর ২০২৫-২৬",
+        privacyNote: "আপনার গোপনীয়তা সুরক্ষিত। এই ক্যালকুলেটরটি ১০০% স্থানীয়ভাবে আপনার ব্রাউজারে চলে এবং কোনো ডেটা সার্ভারে পাঠানো হয় না। সম্পূর্ণ স্বচ্ছতার জন্য কোডটি ওপেন-সোর্স করা আছে।",
         incomeTitle: "আয়ের তথ্য",
         labelGender: "লিঙ্গ",
         genderMaleBtn: "পুরুষ",

@@ -153,16 +153,16 @@
             <a href="index.html" class="back-link" onclick="saveLanguageAndNavigate(event, 'index.html')">
                 ← <span id="backToMain">প্রধান আয়কর ক্যালকুলেটরে ফিরে যান</span>
             </a>
-            <h1 id="mainTitle">রেয়াত সর্বোচ্চকরণ ক্যালকুলেটর</h1>
-            <p id="fiscalYear">সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন</p>
+            <h1 id="mainTitle">বিনিয়োগ ক্যালকুলেটর</h1>
+            <!-- <p id="fiscalYear">সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন</p> -->
+            <p id="privacyNote" style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">এই ক্যালকুলেটরটি সম্পূর্ণরূপে স্থানীয়ভাবে চলে। কোনো ডেটা আপনার ডিভাইসের বাইরে পাঠানো হয় না।</p>
         </header>
 
         <!-- Main Calculator Card -->
         <main class="calculator-card glass-card">
             <div class="calculator-description">
                 <p id="descriptionText">
-                    পরবর্তী অর্থবছরের জন্য আপনার কর রেয়াত সর্বোচ্চ করতে এই ক্যালকুলেটর ব্যবহার করুন।
-                    আপনাকে কত বিনিয়োগ করতে হবে তা দেখতে আপনার বর্তমান মাসিক বেতন লিখুন।
+                    সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন
                 </p>
                 <p id="approximateDisclaimer" style="margin-top: 0.5rem; font-size: 0.8125rem; color: var(--text-light); font-style: italic;">
                     কেন আনুমানিক? কারণ বেতন বৃদ্ধি সাধারণত আগস্ট মাসে হয় এবং জুলাই মাসের বেতন পুরনো হারে পাওয়া যায়।
@@ -246,6 +246,11 @@
                             <td id="grossSalaryLabel">মোট বেতন (আনুমানিক)</td>
                             <td id="grossSalaryCalc"></td>
                             <td id="grossSalary">৳ 0</td>
+                        </tr>
+                        <tr>
+                            <td id="exemptedIncomeLabel">করমুক্ত আয়</td>
+                            <td id="exemptedIncomeCalc">মোট বেতন এর এক-তৃতীয়াংশ অথবা ৫০০০০০ এর মধ্যে যেইটা ছোট</td>
+                            <td id="exemptedIncome">৳ 0</td>
                         </tr>
                         <tr>
                             <td id="taxableIncomeLabel">করযোগ্য আয়</td>

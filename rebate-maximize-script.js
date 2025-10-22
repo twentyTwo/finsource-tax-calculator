@@ -3,6 +3,7 @@ const translations = {
     en: {
         mainTitle: "Rebate Maximize Calculator",
         fiscalYear: "Plan Your Investments for Maximum Tax Rebate",
+        privacyNote: "Your privacy is protected. This calculator runs 100% locally in your browser and no data is ever sent to a server. The code is open-source for full transparency.",
         backToMain: "Back to Main Calculator",
         descriptionText: "Use this calculator to plan your investments for the next financial year to maximize your tax rebate. Enter your current monthly salary to see how much you need to invest.",
         approximateDisclaimer: "Why approximate? Because salary increment typically occurs in August, and July's salary is received at the old rate.",
@@ -25,6 +26,8 @@ const translations = {
         extraSalaryCalc: "Monthly Salary × 16/30",
         grossSalaryLabel: "Gross Salary (Approximate)",
         grossSalaryCalc: "Sum of above",
+        exemptedIncomeLabel: "Exempted Income",
+        exemptedIncomeCalc: "Minimum of one-third of Gross or ৳ 5,00,000, whichever is lower",
         taxableIncomeLabel: "Taxable Income",
         taxableIncomeCalc: "Gross - Exempted Income",
         maxInvestLimitLabel: "Max Investment Limit",
@@ -54,9 +57,10 @@ const translations = {
     bn: {
         mainTitle: "রেয়াত সর্বোচ্চকরণ ক্যালকুলেটর",
         fiscalYear: "সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন",
+        privacyNote: "আপনার গোপনীয়তা সুরক্ষিত। এই ক্যালকুলেটরটি ১০০% স্থানীয়ভাবে আপনার ব্রাউজারে চলে এবং কোনো ডেটা সার্ভারে পাঠানো হয় না। সম্পূর্ণ স্বচ্ছতার জন্য কোডটি ওপেন-সোর্স করা আছে।",
         backToMain: "প্রধান আয়কর ক্যালকুলেটরে ফিরে যান",
-        descriptionText: "পরবর্তী অর্থবছরের জন্য আপনার কর রেয়াত সর্বোচ্চ করতে এই ক্যালকুলেটর ব্যবহার করুন। আপনাকে কত বিনিয়োগ করতে হবে তা দেখতে আপনার বর্তমান মাসিক বেতন লিখুন।",
-        approximateDisclaimer: "কেন আনুমানিক? কারণ বেতন বৃদ্ধি সাধারণত আগস্ট মাসে হয় এবং জুলাই মাসের বেতন পুরনো হারে পাওয়া যায়।",
+        descriptionText: "সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন",
+        approximateDisclaimer: "কিছু হিসাব আনুমানিক, কারণ বেতন বৃদ্ধি সাধারণত আগস্ট মাসে হয় এবং জুলাই মাসের বেতন পুরনো হারে পাওয়া যায়।",
         incomeTitle: "আয়ের তথ্য",
         labelMonthlySalary: "বর্তমান মাসিক বেতন (টাকা)",
         helpMonthlySalary: "আপনার বর্তমান মাসিক বেতন লিখুন",
@@ -76,6 +80,8 @@ const translations = {
         extraSalaryCalc: "মাসিক বেতন × ১৬/৩০",
         grossSalaryLabel: "মোট বেতন (আনুমানিক)",
         grossSalaryCalc: "",
+        exemptedIncomeLabel: "করমুক্ত আয়",
+        exemptedIncomeCalc: "মোট বেতন এর এক-তৃতীয়াংশ অথবা ৫০০০০০ এর মধ্যে যেইটা ছোট",
         taxableIncomeLabel: "করযোগ্য আয়",
         taxableIncomeCalc: "মোট বেতন - করমুক্ত আয়",
         maxInvestLimitLabel: "সর্বোচ্চ বিনিয়োগ সীমা",
@@ -108,7 +114,7 @@ const translations = {
 let currentLanguage = 'bn';
 
 // Constants
-const MAX_EXEMPTION = 450000;
+const MAX_EXEMPTION = 500000;
 const EXEMPTION_DIVISOR = 3;
 const REBATE_RATE_TAXABLE = 0.03;
 const REBATE_RATE_INVESTMENT = 0.15;
@@ -226,6 +232,7 @@ function displayResults(results) {
     document.getElementById('festivalBonus').textContent = formatCurrency(results.festivalBonus);
     document.getElementById('extraSalary').textContent = formatCurrency(results.extraSalary);
     document.getElementById('grossSalary').textContent = formatCurrency(results.grossSalary);
+    document.getElementById('exemptedIncome').textContent = formatCurrency(results.exemptedIncome);
     document.getElementById('taxableIncome').textContent = formatCurrency(results.taxableIncome);
     document.getElementById('maxInvestLimit').textContent = formatCurrency(results.maxInvestLimit);
     document.getElementById('providentFund').textContent = formatCurrency(results.providentFund);
