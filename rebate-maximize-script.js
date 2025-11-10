@@ -1,7 +1,7 @@
 // Translation Data
 const translations = {
     en: {
-        mainTitle: "Rebate Maximize Calculator",
+    mainTitle: "Finsource Rebate Maximize Calculator",
         fiscalYear: "Plan Your Investments for Maximum Tax Rebate",
         privacyNote: "Your privacy is protected. This calculator runs 100% locally in your browser and no data is ever sent to a server. The code is open-source for full transparency.",
         backToMain: "Back to Main Calculator",
@@ -55,7 +55,7 @@ const translations = {
         langText: "বাংলা"
     },
     bn: {
-        mainTitle: "রেয়াত সর্বোচ্চকরণ ক্যালকুলেটর",
+    mainTitle: "ফিনসোর্স কর রেয়াত বিনিয়োগ পরিকল্পনা",
         fiscalYear: "সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন",
         privacyNote: "আপনার গোপনীয়তা সুরক্ষিত। এই ক্যালকুলেটরটি ১০০% স্থানীয়ভাবে আপনার ব্রাউজারে চলে এবং কোনো ডেটা সার্ভারে পাঠানো হয় না। সম্পূর্ণ স্বচ্ছতার জন্য কোডটি ওপেন-সোর্স করা আছে।",
         backToMain: "প্রধান আয়কর ক্যালকুলেটরে ফিরে যান",
