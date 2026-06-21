@@ -113,11 +113,11 @@ const translations = {
 // State Management
 let currentLanguage = 'bn';
 
-// Constants
-const MAX_EXEMPTION = 500000;
-const EXEMPTION_DIVISOR = 3;
-const REBATE_RATE_TAXABLE = 0.03;
-const REBATE_RATE_INVESTMENT = 0.15;
+// Constants (loaded from config; PROVIDENT_FUND_RATE is not in config)
+let MAX_EXEMPTION = 500000;
+let EXEMPTION_DIVISOR = 3;
+let REBATE_RATE_TAXABLE = 0.03;
+let REBATE_RATE_INVESTMENT = 0.10;
 const PROVIDENT_FUND_RATE = 0.06;
 
 // DOM Elements
@@ -130,8 +130,23 @@ const elements = {
     langToggle: document.getElementById('langToggle')
 };
 
+// Load tax config from JSON
+async function loadConfig() {
+    try {
+        const response = await fetch('tax-config-fy-2025-26.json');
+        const config = await response.json();
+        MAX_EXEMPTION = config.MAX_EXEMPTION ?? MAX_EXEMPTION;
+        EXEMPTION_DIVISOR = config.EXEMPTION_DIVISOR ?? EXEMPTION_DIVISOR;
+        REBATE_RATE_TAXABLE = config.REBATE_RATE_TAXABLE ?? REBATE_RATE_TAXABLE;
+        REBATE_RATE_INVESTMENT = config.REBATE_RATE_INVESTMENT ?? REBATE_RATE_INVESTMENT;
+    } catch (e) {
+        console.warn('Could not load tax config, using defaults.', e);
+    }
+}
+
 // Initialize Application
-function init() {
+async function init() {
+    await loadConfig();
     setupEventListeners();
     loadLanguagePreference();
     applyTranslations();
