@@ -212,8 +212,8 @@ function calculateInvestment(monthlySalary) {
     const taxableIncome = Math.max(0, grossSalary - exemptedIncome);
     
     // 8. Calculate Max Investment Limit
-    // Formula: (Taxable Income × 0.03) ÷ 0.15 = Taxable Income × 0.2 (20% of taxable income)
-    const maxInvestLimit = taxableIncome * 0.2;
+    // Formula: (Taxable Income × REBATE_RATE_TAXABLE) ÷ REBATE_RATE_INVESTMENT
+    const maxInvestLimit = taxableIncome * (REBATE_RATE_TAXABLE / REBATE_RATE_INVESTMENT);
     
     // 9. Calculate Provident Fund
     const providentFund = monthlySalary * 12 * PROVIDENT_FUND_RATE;
