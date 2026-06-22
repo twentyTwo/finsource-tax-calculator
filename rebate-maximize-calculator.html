@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,6 +135,333 @@
             font-size: 0.875rem;
             line-height: 1.4;
         }
+
+        .results-table .bold-row td {
+            font-weight: 700;
+        }
+
+        .already-invested-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            color: #16a34a;
+            background: rgba(22, 163, 74, 0.12);
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: 500;
+            vertical-align: middle;
+        }
+
+        .results-table .investment-needed-label {
+            color: #dc2626 !important;
+            font-weight: 700 !important;
+        }
+
+        .investment-needed-row {
+            background: rgba(220, 38, 38, 0.07) !important;
+            border-top: 2px solid #dc2626 !important;
+        }
+
+        .investment-needed-row td {
+            color: #dc2626 !important;
+            font-weight: 700 !important;
+            font-size: 1.05rem !important;
+            padding-top: 0.85rem !important;
+            padding-bottom: 0.85rem !important;
+        }
+
+        .inline-inputs {
+            display: flex;
+            gap: var(--spacing-md, 1rem);
+            align-items: flex-start;
+        }
+
+        .inline-input-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .inline-input-small {
+            flex: 0 0 140px;
+        }
+
+        .inline-input-small input {
+            width: 100%;
+            text-align: center;
+        }
+
+        .settings-section {
+            background: rgba(37, 99, 235, 0.03);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .settings-toggle-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+            margin: 0;
+        }
+
+        .settings-toggle-header:hover .settings-title-text,
+        .settings-toggle-header:hover .settings-chevron { color: var(--primary-color); }
+
+        .settings-title-text {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            flex: 0 0 auto;
+            transition: color 0.15s;
+        }
+
+        .settings-summary {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            opacity: 0.75;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: opacity 0.15s;
+        }
+
+        .settings-section.open .settings-summary {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .settings-chevron {
+            flex: 0 0 auto;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: transform 0.2s ease, color 0.15s;
+            transform: rotate(-90deg);
+        }
+
+        .settings-section.open .settings-chevron {
+            transform: rotate(0deg);
+        }
+
+        .settings-body {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.25s ease, margin-top 0.25s ease;
+            margin-top: 0;
+        }
+
+        .settings-section.open .settings-body {
+            max-height: 320px;
+            margin-top: var(--spacing-md);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .settings-item label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .settings-item select,
+        .settings-item input[type="number"] {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            font-family: inherit;
+        }
+
+        .settings-item select { cursor: pointer; }
+
+        .income-row {
+            display: flex;
+            gap: var(--spacing-md, 1rem);
+            align-items: flex-start;
+        }
+
+        .income-row > .form-group {
+            flex: 1;
+            min-width: 0;
+            margin-bottom: 0;
+        }
+
+        /* ── Inline Investment Rows ── */
+        .add-investment-inline-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.35rem;
+            height: 1.35rem;
+            border-radius: 50%;
+            border: 1.5px solid var(--primary-color);
+            background: var(--primary-color);
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+            margin-left: 0.4rem;
+            vertical-align: middle;
+            padding: 0;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .add-investment-inline-btn:hover { background: #1a56db; border-color: #1a56db; }
+
+        .investment-input-row td {
+            padding: 0.35rem 0.5rem !important;
+        }
+
+        .investment-row-inner {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .investment-cat-select {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.4rem 0.5rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.8125rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .investment-amount-wrap {
+            flex: 0 0 160px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .investment-amount-input {
+            padding: 0.4rem 0.5rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.8125rem;
+            font-family: inherit;
+            width: 100%;
+        }
+
+        .investment-amount-input.over-limit { border-color: #dc2626; }
+
+        .investment-limit-hint {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        .investment-limit-hint.over-limit-text {
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .remove-row-btn {
+            flex: 0 0 auto;
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.35rem 0.6rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.8125rem;
+            line-height: 1;
+            transition: color 0.15s, border-color 0.15s;
+            align-self: flex-start;
+        }
+        .remove-row-btn:hover { color: #dc2626; border-color: #dc2626; }
+
+        /* ── Investment Add Form ── */
+        .investment-add-form-row td {
+            padding: 0.5rem 0.75rem !important;
+            background: rgba(37, 99, 235, 0.04);
+        }
+
+        .investment-add-form-inner {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .investment-add-confirm-btn {
+            padding: 0.4rem 0.85rem;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+        .investment-add-confirm-btn:hover { background: #1a56db; }
+
+        .investment-cancel-link {
+            background: none;
+            border: none;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.4rem 0.2rem;
+            text-decoration: underline;
+            font-family: inherit;
+        }
+        .investment-cancel-link:hover { color: #dc2626; text-decoration: none; }
+
+        /* ── Investment Display Rows ── */
+        .investment-display-row td {
+            padding: 0.5rem var(--spacing-md);
+            font-size: 0.875rem;
+            background: rgba(22, 163, 74, 0.04);
+        }
+
+        .investment-display-cat-td {
+            color: var(--text-primary) !important;
+            font-weight: 500 !important;
+        }
+
+        .investment-display-amount-td {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.4rem;
+        }
+
+        .remove-investment-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 0.1rem 0.3rem;
+            border-radius: 50%;
+            line-height: 1;
+            font-weight: 600;
+            transition: color 0.15s, background 0.15s;
+        }
+        .remove-investment-btn:hover { color: #dc2626; background: rgba(220, 38, 38, 0.1); }
     </style>
 </head>
 <body>
@@ -144,39 +471,79 @@
         <!-- Language Toggle -->
         <div class="language-toggle">
             <button id="langToggle" class="lang-btn" aria-label="Toggle language between English and Bangla">
-                <span id="langText">English</span>
+                <span id="langText">বাংলা</span>
             </button>
         </div>
 
         <!-- Header -->
         <header class="header">
-            <a href="index.html" class="back-link" onclick="saveLanguageAndNavigate(event, 'index.html')">
-                ← <span id="backToMain">প্রধান আয়কর ক্যালকুলেটরে ফিরে যান</span>
-            </a>
+            <!-- <a href="index.html" class="back-link" onclick="saveLanguageAndNavigate(event, 'index.html')">
+                <span id="backToMain">Back to Main Calculator</span>
+            </a> -->
             <h1 id="mainTitle">Finsource Rebate Maximize Calculator</h1>
             <!-- <p id="fiscalYear">সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন</p> -->
-            <p id="privacyNote" style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">এই ক্যালকুলেটরটি সম্পূর্ণরূপে স্থানীয়ভাবে চলে। কোনো ডেটা আপনার ডিভাইসের বাইরে পাঠানো হয় না।</p>
+            <p id="privacyNote" style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">Your privacy is protected. This calculator runs 100% locally in your browser and no data is ever sent to a server. The code is open-source for full transparency.</p>
         </header>
 
         <!-- Main Calculator Card -->
         <main class="calculator-card glass-card">
-            <div class="calculator-description">
+            <!-- <div class="calculator-description">
                 <p id="descriptionText">
-                    সর্বোচ্চ কর রেয়াতের জন্য আপনার বিনিয়োগ পরিকল্পনা করুন
+                    Use this calculator to plan your investments for the next financial year to maximize your tax rebate. Enter your current monthly salary to see how much you need to invest.
                 </p>
-                <p id="approximateDisclaimer" style="margin-top: 0.5rem; font-size: 0.8125rem; color: var(--text-light); font-style: italic;">
-                    কেন আনুমানিক? কারণ বেতন বৃদ্ধি সাধারণত আগস্ট মাসে হয় এবং জুলাই মাসের বেতন পুরনো হারে পাওয়া যায়।
-                </p>
-            </div>
+
+            </div> -->
 
             <form id="rebateForm" novalidate>
-                <!-- Current Monthly Salary Section -->
+                <!-- Calculation Settings -->
+                <div class="settings-section" id="settingsSection">
+                    <div class="settings-toggle-header" id="settingsToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="settingsBody">
+                        <span class="settings-title-text">⚙️ <span id="settingsTitle">Calculation Settings</span></span>
+                        <span class="settings-summary" id="settingsSummary" aria-hidden="true"></span>
+                        <span class="settings-chevron" aria-hidden="true">▾</span>
+                    </div>
+                    <div class="settings-body" id="settingsBody">
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="monthsWorked"><span id="labelMonthsWorked">Months Worked This Financial Year</span></label>
+                            <input type="number" id="monthsWorked" name="monthsWorked" min="1" max="12" value="12" aria-describedby="monthsWorkedHelp">
+                            <small id="monthsWorkedHelp" class="help-text"><span id="helpMonthsWorked">Default 12. New joiners enter actual months worked.</span></small>
+                        </div>
+                        <div class="settings-item">
+                            <label for="perfBonusCount"><span id="labelPerfBonusCount">Performance Bonuses</span></label>
+                            <select id="perfBonusCount" name="perfBonusCount">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                            </select>
+                            <small class="help-text"><span id="helpPerfBonusCount">Each bonus = 20% of monthly gross</span></small>
+                        </div>
+                        <div class="settings-item">
+                            <label for="festivalBonusCount"><span id="labelFestivalBonusCount">Festival Bonuses</span></label>
+                            <select id="festivalBonusCount" name="festivalBonusCount">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                            </select>
+                            <small class="help-text"><span id="helpFestivalBonusCount">Each bonus = 60% of monthly gross</span></small>
+                        </div>
+                        <div class="settings-item">
+                            <label for="extraDays"><span id="labelExtraDays">Extra Salary Days</span></label>
+                            <input type="number" id="extraDays" name="extraDays" min="0" max="30" value="16" aria-describedby="extraDaysHelp">
+                            <small id="extraDaysHelp" class="help-text"><span id="helpExtraDays">Extra days of salary paid per year</span></small>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Income Information Section -->
                 <section class="input-section">
-                    <h2 id="incomeTitle">আয়ের তথ্য</h2>
-                    
+                    <h2 id="incomeTitle">Income Information</h2>
+
+                    <div class="income-row">
                     <div class="form-group">
-                        <label for="monthlySalary" id="labelMonthlySalary">
-                            বর্তমান গ্রস মাসিক বেতন (টাকা)
+                        <label for="monthlySalary">
+                            <span id="labelMonthlySalary">Current Monthly Gross Salary (BDT)</span>
                             <span class="required" aria-label="required">*</span>
                         </label>
                         <input 
@@ -190,18 +557,38 @@
                             autocomplete="off"
                         >
                         <small id="monthlySalaryHelp" class="help-text">
-                            <span id="helpMonthlySalary">আপনার বর্তমান মাসিক বেতন লিখুন</span>
+                            <span id="helpMonthlySalary">Enter your current monthly gross salary</span>
                         </small>
+                    </div>
+
+                    <div id="julySalaryGroup" class="form-group">
+                        <label for="julySalary">
+                            <span id="labelJulySalary">Previous Year's July Gross Salary (BDT)</span>
+                            <span class="optional-badge" id="badgeOptionalJuly">Optional</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="julySalary" 
+                            name="julySalary"
+                            inputmode="numeric"
+                            aria-describedby="julySalaryHelp"
+                            placeholder="0"
+                            autocomplete="off"
+                        >
+                        <small id="julySalaryHelp" class="help-text">
+                            <span id="helpJulySalary">Your July salary before the August increment. Defaults to current monthly salary if left blank.</span>
+                        </small>
+                    </div>
                     </div>
                 </section>
 
                 <!-- Calculate Button -->
                 <div class="button-group">
                     <button type="submit" id="calculateBtn" class="btn btn-primary">
-                        <span id="btnCalculate">প্রয়োজনীয় বিনিয়োগ গণনা করুন</span>
+                        <span id="btnCalculate">Calculate Investment Needed</span>
                     </button>
                     <button type="button" id="resetBtn" class="btn btn-secondary">
-                        <span id="btnReset">রিসেট</span>
+                        <span id="btnReset">Reset</span>
                     </button>
                 </div>
             </form>
@@ -242,6 +629,11 @@
                             <td id="extraSalaryCalc">মাসিক বেতন × ১৬/৩০</td>
                             <td id="extraSalary">৳ 0</td>
                         </tr>
+                        <tr>
+                            <td id="employerPFLabel">Employer PF Contribution</td>
+                            <td id="employerPFCalc">Yearly Salary × 6%</td>
+                            <td id="employerPF">৳ 0</td>
+                        </tr>
                         <tr class="highlight-row">
                             <td id="grossSalaryLabel">মোট বেতন (আনুমানিক)</td>
                             <td id="grossSalaryCalc"></td>
@@ -257,67 +649,35 @@
                             <td id="taxableIncomeCalc">মোট বেতন - করমুক্ত আয়</td>
                             <td id="taxableIncome">৳ 0</td>
                         </tr>
-                        <tr>
+                        <tr class="bold-row">
                             <td id="maxInvestLimitLabel">সর্বোচ্চ বিনিয়োগ সীমা</td>
-                            <td id="maxInvestLimitCalc">(করযোগ্য আয় × ০.০৩) ÷ ০.১৫</td>
+                            <td id="maxInvestLimitCalc">(করযোগ্য আয় × ০.০৩) ÷ ০.১</td>
                             <td id="maxInvestLimit">৳ 0</td>
                         </tr>
                         <tr>
-                            <td id="providentFundLabel">ভবিষ্য তহবিল (প্রভিডেন্ট ফান্ড)</td>
+                            <td><span id="providentFundLabel">ভবিষ্য তহবিল (প্রভিডেন্ট ফান্ড)</span><small id="alreadyInvestedBadge" class="already-invested-badge">Already Invested</small></td>
                             <td id="providentFundCalc">মাসিক বেতন × ১২ × ৬%</td>
                             <td id="providentFund">৳ 0</td>
                         </tr>
-                        <tr class="highlight-row">
-                            <td id="additionalInvestmentLabel">আপনাকে বিনিয়োগ করতে হবে</td>
-                            <td id="additionalInvestmentCalc">সর্বোচ্চ বিনিয়োগ সীমা - ভবিষ্য তহবিল (প্রভিডেন্ট ফান্ড)</td>
+                        <tr>
+                            <td><span id="otherInvestmentsLabel">Other Investments</span><small id="otherInvestedBadge" class="already-invested-badge">Already Invested</small><button type="button" id="addInvestmentBtn" class="add-investment-inline-btn" aria-label="Add investment">+</button></td>
+                            <td id="otherInvestmentsCalc"></td>
+                            <td id="otherInvestmentsAmount">৳ 0</td>
+                        </tr>
+                        <tr class="highlight-row investment-needed-row">
+                            <td id="additionalInvestmentLabel" class="investment-needed-label">More Investment Needed</td>
+                            <td id="additionalInvestmentCalc"></td>
                             <td id="additionalInvestment">৳ 0</td>
                         </tr>
                     </tbody>
                 </table>
-
-                <div class="formula-explanation" id="formulaExplanation">
-                    <strong>সূত্রের ব্যাখ্যা:</strong> সর্বোচ্চ কর রেয়াত পেতে, আপনাকে আপনার করযোগ্য আয়ের ২০% বিনিয়োগ করতে হবে
-                    (যেহেতু বিনিয়োগের ১৫% করযোগ্য আয়ের ৩% এর সমান হওয়া উচিত)। আপনার ভবিষ্য তহবিল (প্রভিডেন্ট ফান্ড) অবদান
-                    (মৌলিক বেতনের ৬%) ইতিমধ্যেই বিনিয়োগ হিসাবে গণনা করা হয়েছে । 
-                </div>
-            </div>
-        </section>
-
-        <!-- Investment Categories Section -->
-        <section class="investment-section glass-card">
-            <h3 id="investmentCategoriesTitle">বিনিয়োগ বিভাগ ও সীমা</h3>
-            <div class="investment-content">
-                <div class="investment-item">
-                    <h4 id="sanchaypatraTitle">সঞ্চয়পত্র</h4>
-                    <p id="sanchaypatraLimit">সর্বোচ্চ বিনিয়োগ: ৳ ৫,০০,০০০</p>
-                </div>
-                <div class="investment-item">
-                    <h4 id="securitiesTitle">সিকিউরিটিজ</h4>
-                    <p id="securitiesLimit">সর্বোচ্চ বিনিয়োগ: ৳ ৫,০০,০০০</p>
-                </div>
-                <div class="investment-item">
-                    <h4 id="providentFundTitle">স্বীকৃত প্রভিডেন্ট ফান্ড</h4>
-                    <p id="providentFundLimit">কোন বিনিয়োগ সীমা নেই</p>
-                </div>
-                <div class="investment-item">
-                    <h4 id="dpsTitle">ডিপিএস (ডিপোজিট পেনশন স্কিম)</h4>
-                    <p id="dpsLimit">সর্বোচ্চ বিনিয়োগ: ৳ ১,২০,০০০</p>
-                </div>
-                <div class="investment-item">
-                    <h4 id="lipTitle">জীবন বীমা প্রিমিয়াম (এলআইপি)</h4>
-                    <p id="lipLimit">সর্বোচ্চ: পলিসি মূল্যের ১/১০</p>
-                </div>
-                <div class="investment-item">
-                    <h4 id="shareMarketTitle">শেয়ার বাজারে বিনিয়োগ</h4>
-                    <p id="shareMarketLimit">কোন বিনিয়োগ সীমা নেই</p>
-                </div>
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
             <p id="footerDisclaimer">
-                ডিসক্লেইমার: এই ক্যালকুলেটরটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে। সঠিক কর পরিকল্পনার জন্য একজন কর পেশাদারের সাথে পরামর্শ করুন।
+                Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax planning.
             </p>
             <p class="footer-github">
                 Made with ❤️ on Github. Want to contribute? Create a PULL Request on <a href="https://github.com/twentyTwo/finsource-tax-calculator" target="_blank" rel="noopener">https://github.com/twentyTwo/finsource-tax-calculator</a>
@@ -325,6 +685,7 @@
         </footer>
     </div>
 
+    <script src="utils.js"></script>
     <script src="rebate-maximize-script.js"></script>
 </body>
 </html>

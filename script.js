@@ -1,8 +1,7 @@
 // Translation Data
 const translations = {
     en: {
-        mainTitle: "Finsource Income Tax Calculator",
-        fiscalYear: "Fiscal Year 2025-26",
+        mainTitle: "",
         privacyNote: "Your privacy is protected. This calculator runs 100% locally in your browser and no data is ever sent to a server. The code is open-source for full transparency.",
         incomeTitle: "Income Information",
         labelGender: "Gender",
@@ -15,20 +14,17 @@ const translations = {
         labelEmployerDeposit: "Tax Already Deposited by Employer (BDT)",
         helpEmployerDeposit: "Amount already paid by your employer on your behalf",
         badgeOptional: "Optional",
+        badgeOptional2: "Optional",
         btnCalculate: "Calculate Tax",
         btnReset: "Reset",
         resultsTitle: "Tax Calculation Results",
         labelNetPayable: "You Need to Pay",
-        labelEffectiveRate: "Effective Tax Rate",
         labelMinInvestmentNeeded: "Min Investment for Max Rebate",
-        labelYourInvestment: "Your Investment",
-        labelPotentialSavings: "Extra Savings If You Invest",
         labelTotalTaxToGov: "Total Tax to Government",
-        labelEmployerPaid: "Employer Paid",
+        labelEmployerPaidSummary: "Employer Paid",
         helperTotalTax: "After rebate deduction",
         helperEmployer: "Already deposited",
         helperMinInvest: "Recommended amount",
-        helperSavings: "By investing shortfall",
         alertTitle: "Investment Opportunity",
         alertMessagePart1: "If you invested",
         alertMessagePart2: "more, you could save an additional",
@@ -42,8 +38,6 @@ const translations = {
         labelFinalTax: "Final Tax Payable",
         labelEmployerPaid: "Employer Deposited",
         labelRemainingDue: "Remaining Due",
-        slabTitle: "Tax Slab Breakdown",
-        rebateDetailsTitle: "Rebate Calculation",
         infoTitle: "How It Works",
         infoExemptionTitle: "1. Exempted Income",
         infoExemptionText: "Minimum of (Gross Income ÷ 3) or BDT 450,000 is tax-free",
@@ -54,7 +48,7 @@ const translations = {
         infoFinalTitle: "4. Net Payable",
         infoFinalText: "Final tax minus employer deposit equals your remaining tax liability",
         footerDisclaimer: "Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax filing.",
-        footerCopyright: "© 2025 Finsource Income Tax Calculator | FY 2025-26",
+        footerCopyright: "© 2025 | FY 2025-26",
         langText: "বাংলা",
         slabRange: "Range",
         slabRate: "Rate",
@@ -63,7 +57,6 @@ const translations = {
         rebateCalc15Percent: "15% of Investment",
         rebateCalcMax: "Maximum Rebate Limit",
         rebateSelected: "Selected Rebate (Minimum)",
-        noTaxDue: "No tax payable - Your income is below the taxable threshold",
         refundScenario: "Refund Due - Employer deposited more than required",
         modalSlabTitle: "Tax Slab Breakdown",
         modalRebateTitle: "Rebate Calculation",
@@ -73,7 +66,6 @@ const translations = {
     },
     bn: {
         mainTitle: "ফিনসোর্স আয়কর ক্যালকুলেটর",
-        fiscalYear: "অর্থবছর ২০২৫-২৬",
         privacyNote: "আপনার গোপনীয়তা সুরক্ষিত। এই ক্যালকুলেটরটি ১০০% স্থানীয়ভাবে আপনার ব্রাউজারে চলে এবং কোনো ডেটা সার্ভারে পাঠানো হয় না। সম্পূর্ণ স্বচ্ছতার জন্য কোডটি ওপেন-সোর্স করা আছে।",
         incomeTitle: "আয়ের তথ্য",
         labelGender: "লিঙ্গ",
@@ -86,20 +78,17 @@ const translations = {
         labelEmployerDeposit: "নিয়োগকর্তা কর্তৃক জমাকৃত কর (টাকা)",
         helpEmployerDeposit: "আপনার পক্ষ থেকে নিয়োগকর্তা ইতিমধ্যে যে পরিমাণ পরিশোধ করেছেন",
         badgeOptional: "ঐচ্ছিক",
+        badgeOptional2: "ঐচ্ছিক",
         btnCalculate: "কর গণনা করুন",
         btnReset: "রিসেট",
         resultsTitle: "কর গণনার ফলাফল",
         labelNetPayable: "আপনাকে পরিশোধ করতে হবে",
-        labelEffectiveRate: "কার্যকর কর হার",
         labelMinInvestmentNeeded: "সর্বোচ্চ রেয়াতের জন্য ন্যূনতম বিনিয়োগ",
-        labelYourInvestment: "আপনার বিনিয়োগ",
-        labelPotentialSavings: "বিনিয়োগ করলে অতিরিক্ত সাশ্রয়",
         labelTotalTaxToGov: "সরকারকে মোট কর",
-        labelEmployerPaid: "নিয়োগকর্তা পরিশোধিত",
+        labelEmployerPaidSummary: "নিয়োগকর্তা পরিশোধিত",
         helperTotalTax: "রেয়াত বাদে",
         helperEmployer: "ইতিমধ্যে জমাকৃত",
         helperMinInvest: "প্রস্তাবিত পরিমাণ",
-        helperSavings: "ঘাটতি বিনিয়োগ করে",
         alertTitle: "বিনিয়োগের সুযোগ",
         alertMessagePart1: "আপনি যদি ",
         alertMessagePart2: "বিনিয়োগ করতেন তাহলে অতিরিক্ত ",
@@ -113,8 +102,6 @@ const translations = {
         labelFinalTax: "চূড়ান্ত প্রদেয় কর",
         labelEmployerPaid: "নিয়োগকর্তা জমাকৃত",
         labelRemainingDue: "অবশিষ্ট বকেয়া",
-        slabTitle: "কর স্ল্যাব বিবরণ",
-        rebateDetailsTitle: "রেয়াত গণনা",
         infoTitle: "কীভাবে কাজ করে",
         infoExemptionTitle: "১. করমুক্ত আয়",
         infoExemptionText: "(মোট আয় ÷ ৩) অথবা ৪,৫০,০০০ টাকার মধ্যে যেটি কম সেটি করমুক্ত",
@@ -134,7 +121,6 @@ const translations = {
         rebateCalc15Percent: "বিনিয়োগের ১৫%",
         rebateCalcMax: "সর্বোচ্চ রেয়াত সীমা",
         rebateSelected: "নির্বাচিত রেয়াত (ন্যূনতম)",
-        noTaxDue: "কোন কর প্রদেয় নয় - আপনার আয় করযোগ্য সীমার নিচে",
         refundScenario: "ফেরত প্রদেয় - নিয়োগকর্তা প্রয়োজনের চেয়ে বেশি জমা করেছেন",
         modalSlabTitle: "কর স্ল্যাব বিবরণ",
         modalRebateTitle: "রেয়াত গণনা",
@@ -145,7 +131,7 @@ const translations = {
 };
 
 // State Management
-let currentLanguage = 'bn';
+let currentLanguage = 'en';
 let TAX_CONFIG = null;
 
 // DOM Elements
@@ -238,24 +224,8 @@ function handleGenderChange(e) {
 
 function handleInputBlur(e) {
     if (e.target.value) {
-        const num = parseInt(e.target.value);
-        e.target.value = formatNumber(num);
+        e.target.value = formatNumber(parseFormattedNumber(e.target.value));
     }
-}
-
-// Format Number with Commas
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-
-// Parse Formatted Number
-function parseFormattedNumber(str) {
-    return parseInt(str.replace(/,/g, '') || '0');
-}
-
-// Format Currency
-function formatCurrency(num) {
-    return `৳ ${formatNumber(Math.round(num))}`;
 }
 
 // Handle Calculate
@@ -307,9 +277,9 @@ function calculateTax(grossIncome, investmentAmount, employerDeposit, gender = '
     // 5. Calculate Final Tax
     let finalTax = Math.max(0, totalTax - rebate);
     
-    // Apply minimum tax requirement: final tax should be at least 5000 taka if tax before rebate > 0
-    if (totalTax > 0 && finalTax < 5000) {
-        finalTax = 5000;
+    // Apply minimum tax requirement
+    if (totalTax > 0 && finalTax < TAX_CONFIG.MIN_TAX) {
+        finalTax = TAX_CONFIG.MIN_TAX;
     }
     
     // 6. Calculate Net Payable
@@ -321,10 +291,8 @@ function calculateTax(grossIncome, investmentAmount, employerDeposit, gender = '
     
     // 8. Calculate Investment Analysis
     const investmentAnalysis = calculateInvestmentAnalysis(
-        grossIncome, 
-        investmentAmount, 
-        taxableIncome, 
-        totalTax,
+        investmentAmount,
+        taxableIncome,
         rebateDetails
     );
     
@@ -426,10 +394,8 @@ function calculateRebate(taxableIncome, investmentAmount) {
 }
 
 // Calculate Investment Analysis
-function calculateInvestmentAnalysis(grossIncome, currentInvestment, taxableIncome, totalTax, rebateDetails) {
-    // Calculate the rebate options
-    const rebate3Percent = taxableIncome * TAX_CONFIG.REBATE_RATE_TAXABLE;
-    const maxRebateCeiling = TAX_CONFIG.MAX_REBATE;
+function calculateInvestmentAnalysis(currentInvestment, taxableIncome, rebateDetails) {
+    const { rebate3Percent, maxRebate: maxRebateCeiling } = rebateDetails;
     
     // To get maximum rebate, we need to find the minimum investment where 15% of investment >= 3% of taxable income
     // Formula: 15% of Investment >= 3% of Taxable Income
@@ -479,13 +445,22 @@ function displayResults(results) {
     const alertBox = document.getElementById('investmentGapAlert');
     if (inv.investmentShortfall > 0 && inv.potentialExtraSavings > 0) {
         alertBox.classList.remove('hidden');
-        document.getElementById('investmentShortfall').textContent = formatCurrency(inv.investmentShortfall);
-        document.getElementById('additionalSavings').textContent = formatCurrency(inv.potentialExtraSavings);
-        
-        // Update alert message with translation
         const t = translations[currentLanguage];
         const alertMessage = document.getElementById('alertMessage');
-        alertMessage.innerHTML = `${t.alertMessagePart1} <span id="investmentShortfall">${formatCurrency(inv.investmentShortfall)}</span> ${t.alertMessagePart2} <span id="additionalSavings">${formatCurrency(inv.potentialExtraSavings)}</span> ${t.alertMessagePart3}`;
+        const shortfallSpan = document.createElement('span');
+        shortfallSpan.id = 'investmentShortfall';
+        shortfallSpan.textContent = formatCurrency(inv.investmentShortfall);
+        const savingsSpan = document.createElement('span');
+        savingsSpan.id = 'additionalSavings';
+        savingsSpan.textContent = formatCurrency(inv.potentialExtraSavings);
+        alertMessage.textContent = '';
+        alertMessage.append(
+            `${t.alertMessagePart1} `,
+            shortfallSpan,
+            ` ${t.alertMessagePart2} `,
+            savingsSpan,
+            ` ${t.alertMessagePart3}`
+        );
     } else {
         alertBox.classList.add('hidden');
     }
@@ -502,11 +477,9 @@ function displayResults(results) {
     
     // Handle special cases
     if (results.isRefund && results.employerDeposit > results.finalTax) {
-        const remainingDueElement = document.getElementById('remainingDue');
         const refundAmount = results.employerDeposit - results.finalTax;
-        remainingDueElement.textContent = formatCurrency(refundAmount);
-        remainingDueElement.parentElement.querySelector('span:first-child').textContent = 
-            translations[currentLanguage].refundScenario;
+        document.getElementById('remainingDue').textContent = formatCurrency(refundAmount);
+        document.getElementById('labelRemainingDue').textContent = translations[currentLanguage].refundScenario;
     }
     
     if (results.totalTax === 0) {
@@ -779,7 +752,7 @@ function handleReset() {
 // Language Toggle
 function toggleLanguage() {
     currentLanguage = currentLanguage === 'en' ? 'bn' : 'en';
-    saveLanguagePreference();
+    saveLanguagePreference(currentLanguage);
     applyTranslations();
     
     // Recalculate if results are visible
@@ -818,31 +791,10 @@ function applyTranslations() {
     }
 }
 
-// Save Language Preference
-function saveLanguagePreference() {
-    // Save only to shared storage for both calculators
-    localStorage.setItem('sharedLanguage', currentLanguage);
-}
-
-// Load Language Preference
+// Load Language Preference (delegates to utils.js)
 function loadLanguagePreference() {
-    // Load from shared storage
-    let saved = localStorage.getItem('sharedLanguage');
-    if (saved && (saved === 'en' || saved === 'bn')) {
-        currentLanguage = saved;
-    }
-    // If no saved preference, set default to Bangla and save it
-    else {
-        currentLanguage = 'bn';
-        saveLanguagePreference();
-    }
-}
-
-// Save language and navigate to another page
-function saveLanguageAndNavigate(event, url) {
-    event.preventDefault();
-    saveLanguagePreference();
-    window.location.href = url;
+    currentLanguage = getLanguagePreference();
+    saveLanguagePreference(currentLanguage);
 }
 
 // Initialize on DOM Load

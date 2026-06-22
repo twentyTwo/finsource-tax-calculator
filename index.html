@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Finsource Income Tax Calculator for FY 2025-26 - Calculate your tax with exemptions, rebates, and progressive slabs">
+    <meta name="description" content="Calculate your tax with exemptions, rebates, and progressive slabs for FY 2025-26">
     <meta name="keywords" content="Finsource tax calculator, income tax, FY 2025-26, tax rebate">
     <meta name="author" content="FinSource">
-    <title>Finsource Income Tax Calculator FY 2025-26</title>
+    <title>Income Tax Calculator FY 2025-26</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,22 +16,22 @@
         <!-- Language Toggle -->
         <div class="language-toggle">
             <button id="langToggle" class="lang-btn" aria-label="Toggle language between English and Bangla">
-                <span id="langText">English</span>
+                <span id="langText">বাংলা</span>
             </button>
         </div>
 
         <!-- Header -->
         <header class="header">
-            <h1 id="mainTitle">ফিনসোর্স আয়কর ক্যালকুলেটর</h1>
-            <p id="privacyNote" style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">আপনার গোপনীয়তা সুরক্ষিত। এই ক্যালকুলেটরটি ১০০% স্থানীয়ভাবে আপনার ব্রাউজারে চলে এবং কোনো ডেটা সার্ভারে পাঠানো হয় না। সম্পূর্ণ স্বচ্ছতার জন্য কোডটি ওপেন-সোর্স করা আছে।</p>
+            <h1 id="mainTitle"></h1>
+            <p id="privacyNote" style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">Your privacy is protected. This calculator runs 100% locally in your browser and no data is ever sent to a server. The code is open-source for full transparency.</p>
         </header>
 
         <!-- Rebate Maximize Info Bar -->
         <div class="rebate-info-bar">
             <span class="info-bar-icon">📊</span>
             <span class="info-bar-text">
-                <span id="rebateInfoText">পরবর্তী অর্থবছরে আপনার রেয়াত সর্বোচ্চ করতে চান?</span>
-                <a href="rebate-maximize-calculator.html" class="info-bar-link" id="rebateInfoLink" onclick="saveLanguageAndNavigate(event, 'rebate-maximize-calculator.html')">এখানে ক্লিক করুন</a>
+                <span id="rebateInfoText">Want to maximize your rebate in next financial year?</span>
+                <a href="rebate-maximize-calculator.html" class="info-bar-link" id="rebateInfoLink" onclick="saveLanguageAndNavigate(event, 'rebate-maximize-calculator.html')">Click Here</a>
             </span>
         </div>
 
@@ -40,20 +40,20 @@
             <form id="taxForm" novalidate>
                 <!-- Gross Income Section -->
                 <section class="input-section">
-                    <h2 id="incomeTitle">আয়ের তথ্য</h2>
+                    <h2 id="incomeTitle">Income Information</h2>
                     
                     <!-- Gender Selection -->
                     <div class="form-group">
-                        <label id="labelGender">লিঙ্গ</label>
+                        <label id="labelGender">Gender</label>
                         <div class="gender-toggle">
-                            <div class="gender-btn active" data-gender="male" id="genderMaleBtn">পুরুষ</div>
-                            <div class="gender-btn" data-gender="female" id="genderFemaleBtn">মহিলা</div>
+                            <div class="gender-btn active" data-gender="male" id="genderMaleBtn">Male</div>
+                            <div class="gender-btn" data-gender="female" id="genderFemaleBtn">Female</div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="grossIncome" id="labelGrossIncome">
-                            মোট বার্ষিক আয় (টাকা)
+                        <label for="grossIncome">
+                            <span id="labelGrossIncome">Gross Annual Income (BDT)</span>
                             <span class="required" aria-label="required">*</span>
                         </label>
                         <input 
@@ -67,14 +67,14 @@
                             autocomplete="off"
                         >
                         <small id="grossIncomeHelp" class="help-text">
-                            <span id="helpGrossIncome">আপনার মোট বার্ষিক আয় লিখুন</span>
+                            <span id="helpGrossIncome">Enter your total annual gross income</span>
                         </small>
                     </div>
 
                     <div class="form-group">
-                        <label for="investmentAmount" id="labelInvestment">
-                            বিনিয়োগের পরিমাণ (টাকা)
-                            <span class="optional-badge" id="badgeOptional">ঐচ্ছিক</span>
+                        <label for="investmentAmount">
+                            <span id="labelInvestment">Investment Amount (BDT)</span>
+                            <span class="optional-badge" id="badgeOptional">Optional</span>
                         </label>
                         <input 
                             type="text" 
@@ -86,14 +86,14 @@
                             autocomplete="off"
                         >
                         <small id="investmentHelp" class="help-text">
-                            <span id="helpInvestment">যোগ্য প্রকল্পে বিনিয়োগ (ডিপিএস, বীমা, ভবিষ্য তহবিল, ইত্যাদি)</span>
+                            <span id="helpInvestment">Investment in eligible schemes (DPS, insurance, provident fund, etc.)</span>
                         </small>
                     </div>
 
                     <div class="form-group">
-                        <label for="employerDeposit" id="labelEmployerDeposit">
-                            নিয়োগকর্তা কর্তৃক জমাকৃত কর (টাকা)
-                            <span class="optional-badge" id="badgeOptional2">ঐচ্ছিক</span>
+                        <label for="employerDeposit">
+                            <span id="labelEmployerDeposit">Tax Already Deposited by Employer (BDT)</span>
+                            <span class="optional-badge" id="badgeOptional2">Optional</span>
                         </label>
                         <input 
                             type="text" 
@@ -105,7 +105,7 @@
                             autocomplete="off"
                         >
                         <small id="employerDepositHelp" class="help-text">
-                            <span id="helpEmployerDeposit">আপনার পক্ষ থেকে নিয়োগকর্তা ইতিমধ্যে যে পরিমাণ পরিশোধ করেছেন</span>
+                            <span id="helpEmployerDeposit">Amount already paid by your employer on your behalf</span>
                         </small>
                     </div>
                 </section>
@@ -113,10 +113,10 @@
                 <!-- Calculate Button -->
                 <div class="button-group">
                     <button type="submit" id="calculateBtn" class="btn btn-primary">
-                        <span id="btnCalculate">কর গণনা করুন</span>
+                        <span id="btnCalculate">Calculate Tax</span>
                     </button>
                     <button type="button" id="resetBtn" class="btn btn-secondary">
-                        <span id="btnReset">রিসেট</span>
+                        <span id="btnReset">Reset</span>
                     </button>
                 </div>
             </form>
@@ -125,35 +125,35 @@
         <!-- Results Section -->
         <section id="resultsSection" class="results-section hidden" aria-live="polite">
             <div class="glass-card results-card">
-                <h2 id="resultsTitle">কর গণনার ফলাফল</h2>
+                <h2 id="resultsTitle">Tax Calculation Results</h2>
                 
                 <!-- Summary Box - Redesigned -->
                 <div class="summary-box">
                     <!-- Total Tax to Government -->
                     <div class="summary-item info-card">
                         <span id="finalTaxDisplay" class="summary-value-large">৳ 0</span>
-                        <span id="labelTotalTaxToGov" class="summary-label">সরকারকে মোট কর</span>
-                        <small id="helperTotalTax" class="helper-text">রেয়াত বাদে</small>
+                        <span id="labelTotalTaxToGov" class="summary-label">Total Tax to Government</span>
+                        <small id="helperTotalTax" class="helper-text">After rebate deduction</small>
                     </div>
 
                     <!-- Employer Contribution -->
                     <div class="summary-item success-card">
                         <span id="employerPaidDisplay" class="summary-value-large">৳ 0</span>
-                        <span id="labelEmployerPaid" class="summary-label">নিয়োগকর্তা পরিশোধিত</span>
-                        <small id="helperEmployer" class="helper-text">ইতিমধ্যে জমাকৃত</small>
+                        <span id="labelEmployerPaidSummary" class="summary-label">Employer Paid</span>
+                        <small id="helperEmployer" class="helper-text">Already deposited</small>
                     </div>
 
                     <!-- Main Focus: What You Pay -->
                     <div class="summary-item primary-focus">
                         <span id="netPayable" class="summary-value-large">৳ 0</span>
-                        <span id="labelNetPayable" class="summary-label">আপনাকে পরিশোধ করতে হবে</span>
+                        <span id="labelNetPayable" class="summary-label">You Need to Pay</span>
                     </div>                    
                     
                     <!-- Investment Recommendation -->
                     <div class="summary-item warning-card">
                         <span id="minInvestmentDisplay" class="summary-value-large">৳ 0</span>
-                        <span id="labelMinInvestmentNeeded" class="summary-label">সর্বোচ্চ রেয়াতের জন্য ন্যূনতম বিনিয়োগ</span>
-                        <small id="helperMinInvest" class="helper-text">প্রস্তাবিত পরিমাণ</small>
+                        <span id="labelMinInvestmentNeeded" class="summary-label">Min Investment for Max Rebate</span>
+                        <small id="helperMinInvest" class="helper-text">Recommended amount</small>
                     </div>
                 </div>
                 
@@ -162,54 +162,54 @@
                     <div class="alert-content">
                         <span class="alert-icon">💡</span>
                         <div class="alert-text">
-                            <strong id="alertTitle">বিনিয়োগের সুযোগ</strong>
-                            <p id="alertMessage">আপনি যদি <span id="investmentShortfall">৳ 0</span> বিনিয়োগ করতেন তাহলে অতিরিক্ত <span id="additionalSavings">৳ 0</span> টাকা সাশ্রয় করতে পারতেন!</p>
+                            <strong id="alertTitle">Investment Opportunity</strong>
+                            <p id="alertMessage">If you invested <span id="investmentShortfall">৳ 0</span> more, you could save an additional <span id="additionalSavings">৳ 0</span> in taxes!</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Detailed Breakdown -->
                 <div class="breakdown-section">
-                    <h3 id="breakdownTitle">বিস্তারিত বিবরণ</h3>
+                    <h3 id="breakdownTitle">Detailed Breakdown</h3>
                     
                     <div class="breakdown-grid">
                         <div class="breakdown-item">
-                            <span id="labelGrossIncomeBreakdown">মোট আয়</span>
+                            <span id="labelGrossIncomeBreakdown">Gross Income</span>
                             <span id="grossIncomeBreakdown" class="breakdown-value">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelExemptedIncome" class="clickable-label" onclick="showExemptedIncome()">করমুক্ত আয়</span>
+                            <span id="labelExemptedIncome" class="clickable-label" onclick="showExemptedIncome()">Exempted Income</span>
                             <span id="exemptedIncome" class="breakdown-value exemption">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item divider-top">
-                            <span id="labelTaxableIncome">করযোগ্য আয়</span>
+                            <span id="labelTaxableIncome">Taxable Income</span>
                             <span id="taxableIncome" class="breakdown-value taxable">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelTaxBeforeRebate" class="clickable-label" onclick="showSlabBreakdown()">রেয়াত ছাড়া কর</span>
+                            <span id="labelTaxBeforeRebate" class="clickable-label" onclick="showSlabBreakdown()">Tax Before Rebate</span>
                             <span id="taxBeforeRebate" class="breakdown-value">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelRebate" class="clickable-label" onclick="showRebateDetails()">কর রেয়াত</span>
+                            <span id="labelRebate" class="clickable-label" onclick="showRebateDetails()">Tax Rebate</span>
                             <span id="rebateAmount" class="breakdown-value rebate">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item divider-top">
-                            <span id="labelFinalTax">চূড়ান্ত প্রদেয় কর</span>
+                            <span id="labelFinalTax">Final Tax Payable</span>
                             <span id="finalTax" class="breakdown-value final">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item">
-                            <span id="labelEmployerPaid">নিয়োগকর্তা জমাকৃত</span>
+                            <span id="labelEmployerPaid">Employer Deposited</span>
                             <span id="employerPaid" class="breakdown-value">৳ 0</span>
                         </div>
                         
                         <div class="breakdown-item highlight-box divider-top">
-                            <span id="labelRemainingDue">অবশিষ্ট বকেয়া</span>
+                            <span id="labelRemainingDue">Remaining Due</span>
                             <span id="remainingDue" class="breakdown-value due">৳ 0</span>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
         <div id="slabModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 id="modalSlabTitle">কর স্ল্যাব বিবরণ</h3>
+                    <h3 id="modalSlabTitle">Tax Slab Breakdown</h3>
                     <span class="modal-close" onclick="closeSlabModal()">&times;</span>
                 </div>
                 <div id="modalSlabBreakdown" class="modal-slab-list">
@@ -234,7 +234,7 @@
         <div id="rebateModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 id="modalRebateTitle">রেয়াত গণনা</h3>
+                    <h3 id="modalRebateTitle">Rebate Calculation</h3>
                     <span class="modal-close" onclick="closeRebateModal()">&times;</span>
                 </div>
                 <div id="modalRebateDetails" class="modal-rebate-content">
@@ -247,7 +247,7 @@
         <div id="exemptedModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 id="modalExemptedTitle">করমুক্ত আয় গণনা</h3>
+                    <h3 id="modalExemptedTitle">Exempted Income Calculation</h3>
                     <span class="modal-close" onclick="closeExemptedModal()">&times;</span>
                 </div>
                 <div id="modalExemptedDetails" class="modal-exempted-content">
@@ -258,23 +258,23 @@
 
         <!-- Info Section -->
         <section class="info-section glass-card">
-            <h3 id="infoTitle">কীভাবে কাজ করে</h3>
+            <h3 id="infoTitle">How It Works</h3>
             <div class="info-content">
                 <div class="info-item">
-                    <h4 id="infoExemptionTitle">১. করমুক্ত আয়</h4>
-                    <p id="infoExemptionText">(মোট আয় ÷ ৩) অথবা ৫০০০০০ টাকার মধ্যে যেটি কম সেটি করমুক্ত</p>
+                    <h4 id="infoExemptionTitle">1. Exempted Income</h4>
+                    <p id="infoExemptionText">Minimum of (Gross Income ÷ 3) or BDT 450,000 is tax-free</p>
                 </div>
                 <div class="info-item">
-                    <h4 id="infoSlabTitle">২. কর স্ল্যাব</h4>
-                    <p id="infoSlabText">করযোগ্য আয়ের উপর ০% থেকে ৩০% পর্যন্ত ক্রমান্বয়ে কর হিসাব করা হয়</p>
+                    <h4 id="infoSlabTitle">2. Progressive Tax Slabs</h4>
+                    <p id="infoSlabText">Tax is calculated progressively on taxable income using marginal rates from 0% to 30%</p>
                 </div>
                 <div class="info-item">
-                    <h4 id="infoRebateTitle">৩. কর রেয়াত</h4>
-                    <p id="infoRebateText">এই তিনটির মধ্যে যেটি কম: করযোগ্য আয়ের ৩%, প্রকৃত বিনিয়োগের ১৫%, অথবা ১০,০০,০০০ টাকা</p>
+                    <h4 id="infoRebateTitle">3. Tax Rebate</h4>
+                    <p id="infoRebateText">Minimum of: 3% of taxable income, 15% of actual investment, or BDT 1,000,000</p>
                 </div>
                 <div class="info-item">
-                    <h4 id="infoFinalTitle">৪. নিট প্রদেয়</h4>
-                    <p id="infoFinalText">চূড়ান্ত কর বিয়োগ নিয়োগকর্তা জমাকৃত = আপনার অবশিষ্ট কর দায়</p>
+                    <h4 id="infoFinalTitle">4. Net Payable</h4>
+                    <p id="infoFinalText">Final tax minus employer deposit equals your remaining tax liability</p>
                 </div>
             </div>
         </section>
@@ -282,10 +282,10 @@
         <!-- Footer -->
         <footer class="footer">
             <p id="footerCopyright">
-                © ২০২৫ ফিনসোর্স আয়কর ক্যালকুলেটর ২০২৫-২৬
+                © 2025 | FY 2025-26
             </p>
             <p id="footerDisclaimer">
-                ডিসক্লেইমার: এই ক্যালকুলেটরটি শুধুমাত্র তথ্যমূলক উদ্দেশ্যে। সঠিক কর দাখিলের জন্য একজন কর পেশাদারের সাথে পরামর্শ করুন।
+                Disclaimer: This calculator is for informational purposes only. Please consult with a tax professional for accurate tax filing.
             </p>
             <p class="footer-github">
                 Made with ❤️ on Github. Want to contribute? Create a PULL Request on <a href="https://github.com/twentyTwo/finsource-tax-calculator" target="_blank" rel="noopener">https://github.com/twentyTwo/finsource-tax-calculator</a>
@@ -293,6 +293,7 @@
         </footer>
     </div>
 
+    <script src="utils.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

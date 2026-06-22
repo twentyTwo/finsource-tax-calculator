@@ -1,4 +1,4 @@
-# Finsource Income Tax Calculator FY 2025-26
+# Income Tax Calculator FY 2025-26
 
 A modern web application for calculating Bangladesh income tax for Fiscal Year 2025-26 with bilingual support (English + Bangla). Features include accurate tax calculations with exemptions, progressive slabs, rebates, and investment planning tools.
 
